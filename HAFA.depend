@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1525791287 source:c:\users\ermis\desktop\hafa\hafa\main.c
+	<stdio.h>
+	<string.h>
+	<conio.h>
+	<stdlib.h>
+	<windows.h>
+
