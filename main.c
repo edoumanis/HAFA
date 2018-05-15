@@ -196,91 +196,133 @@ for(i=0;i<78;i++){
 }
 }
 
+const char * mmToMonth(int m){
+    char * minas;
+    switch (m){
+        case 1:
+            minas = "January";
+            break;
+        case 2:
+            minas = "February";
+            break;
+        case 3:
+            minas = "March";
+            break;
+        case 4:
+            minas = "April";
+            break;
+        case 5:
+            minas = "May";
+            break;
+        case 6:
+            minas = "June";
+            break;
+        case 7:
+            minas = "July";
+            break;
+        case 8:
+            minas = "August";
+            break;
+        case 9:
+            minas = "September";
+            break;
+        case 10:
+            minas = "October";
+            break;
+        case 11:
+            minas = "November";
+            break;
+        case 12:
+            minas = "December";
+            break;
+    }
+    return (minas);
+}
+
 void facultyPayments(){
 
     int  i, j, x, flag=-3, flag1=0, year=0, month=0, N, N1, N2, line, str=1;
-    
-	int aNo, tk;
+    int aNo, tk;
     char ID[maxID], surname[maxSurname], name[maxName], fName[maxFname], rank[maxRank], condition[maxCondition], degree[maxDegree],
             address[maxAddress], town[maxCity], phone[maxPhone], enable[maxEnable];
     char sSurname[maxSurname], c;
 
-    
-    
-     FILE *fp;
+    int fhours;
+    char subj[maxSubject], lastname[maxSurname], firstname[maxName], class1[maxClass];
 
-    clrRight();
+    int dd, mm, yyyy, mhours, wres=0;
+    char subj2[maxSubject], lastname2[maxSurname], firstname2[maxName], class2[maxClass];
+
+    FILE *fp, *fp1, *fp2;
+
     fp = fopen("faculties.txt", "r");
 
     if (fp == NULL ){
         gotoxy(maxPrintLeft, 9);printf("Problem opening the file");
         exit (2);
-    }else{
-        N=0;//initialized line counter
-        while (!feof(fp)){
-            fscanf(fp, "%s %s %s %s %s %s %s %s %d %s %d %s %s", ID, surname, name, fName, rank, condition, degree,
-                    address,&aNo, town, &tk, phone, enable);
-                if ((strcmp(enable, "+")) == 0) { //counts line only for enabled professors
-                    N++;
-                }
-        }
-
-        kathigites = (fac*)malloc(N*sizeof(fac)); //memory allocation
-        if (kathigites==NULL){ // check for memory
-            printf("There is no enough memory");
-            exit (2);
-        }
-        fseek(fp,0,SEEK_SET); //returns the file position pointer at the begining of the file
-        for(i=0; i<N;){ //raise i only if found enable faculty
-            fscanf(fp, "%s %s %s %s %s %s %s %s %d %s %d %s %s", ID, surname, name, fName, rank, condition, degree,
-                   address,&aNo, town, &tk, phone, enable);
-                if (strcmp(enable, "+") == 0){ //passing files  data into array(only enable faculties)
-                    strcpy(kathigites[i].ID,ID);
-                    strcpy(kathigites[i].surname,surname);
-                    strcpy(kathigites[i].name,name);
-                    strcpy(kathigites[i].fname,fName);
-                    strcpy(kathigites[i].rank,rank);
-                    strcpy(kathigites[i].condition,condition);
-                    strcpy(kathigites[i].degree,degree);
-                    strcpy(kathigites[i].address,address);
-                    kathigites[i].aNo=aNo;
-                    strcpy(kathigites[i].city,town);
-                    kathigites[i].tk=tk;
-                    strcpy(kathigites[i].phone,phone);
-                    strcpy(kathigites[i].enable,enable);
-                    ++i;
-                }
-        }
-
-        fclose(fp);
     }
+    N=0;//initialized line counter
+    while (!feof(fp)){
+        fscanf(fp, "%s %s %s %s %s %s %s %s %d %s %d %s %s", ID, surname, name, fName, rank, condition, degree,
+                    address,&aNo, town, &tk, phone, enable);
+            if ((strcmp(enable, "+")) == 0) { //counts line only for enabled professors
+                    N++;
+            }
+    }
+
+    kathigites = (fac*)malloc(N*sizeof(fac)); //memory allocation only for enable professors
+    if (kathigites==NULL){ // check for memory
+        printf("There is no enough memory");
+        exit (2);
+    }
+    fseek(fp,0,SEEK_SET); //returns the file position pointer at the begining of the file
+    for(i=0; i<N;){ //raise i only if found enable faculty
+        fscanf(fp, "%s %s %s %s %s %s %s %s %d %s %d %s %s", ID, surname, name, fName, rank, condition, degree,
+                address,&aNo, town, &tk, phone, enable);
+            if (strcmp(enable, "+") == 0){ //passing files  data into array(only enable faculties)
+                strcpy(kathigites[i].ID,ID);
+                strcpy(kathigites[i].surname,surname);
+                strcpy(kathigites[i].name,name);
+                strcpy(kathigites[i].fname,fName);
+                strcpy(kathigites[i].rank,rank);
+                strcpy(kathigites[i].condition,condition);
+                strcpy(kathigites[i].degree,degree);
+                strcpy(kathigites[i].address,address);
+                kathigites[i].aNo=aNo;
+                strcpy(kathigites[i].city,town);
+                kathigites[i].tk=tk;
+                strcpy(kathigites[i].phone,phone);
+                strcpy(kathigites[i].enable,enable);
+                ++i;
+            }
+    }
+        fclose(fp);
+
     do{
         gotoxy(maxPrintLeft, 9);printf("Enter surname:");
         scanf("%s", sSurname);
 
-        clrRight();
-        line = 7, x=-1;
-            for(j=0; j<i-1; j++){ // search for faculty
-                if (!(stricmp(sSurname, kathigites[j].surname))){ // compares the given surname with surnames in the file
-                    gotoxy(maxPrintLeft,++line);printf("ID:%s",kathigites[j].ID); //if stricmp is true, it types the record
-                    gotoxy(maxPrintLeft,++line);printf("Fullname:%s %s", kathigites[j].surname, kathigites[j].name);
-                    line++;
-                    ++x; //counts the same surnames in the file
-                    flag = 0;
-                    flag1 = j;
-                }
-
+        line = 7, x=0;
+        for(j=0; j<i-1; j++){ // search for faculty
+            if (!(stricmp(sSurname, kathigites[j].surname))){ // compares the given surname with surnames in the file
+                gotoxy(maxPrintLeft,++line);printf("ID:%s",kathigites[j].ID); //if stricmp is true, it types the record
+                gotoxy(maxPrintLeft,++line);printf("Fullname:%s %s", kathigites[j].surname, kathigites[j].name);
+                line++;
+                ++x; //counts the same surnames in the file
+                flag = 0;
+                flag1 = j;
+            }
                 switch (x){
-                    case 0: //if there is no identical surnames
+                    case 1: //if there is no identical surnames
                         flag = -1;//keeps the element's array index
                         break;
 
                     case 5: //if there are more than five records to display
-                        gotoxy(maxPrintLeft,24);printf("Press ENTER key to Continue"); //enter for next page of records
+                        gotoxy(maxPrintLeft,24);printf("Press ENTER key to Continue"); //for viewing next page of records
                         getch();
                         clrRight();
                         line = 7; //initialized the first line to 7
-                        x = 0;     //initialized the record counter
+                        x = 0;    //initialized the record counter
                         flag = -2;
                         break;
                 }
@@ -291,28 +333,27 @@ void facultyPayments(){
                 gotoxy(maxPrintLeft, 10);printf("Press any key for re-enter OR (b) for main menu:");
                 c = getch();
                 clrRight();
-                if (c == 'b'){
+                if (c == 'b'){ //back to main menu
                         clrRight();
                         return;
                 }
             }
-    }while (flag == -3);
+    }while (flag == -3);//while not found the surname
 
-            gotoxy(maxPrintLeft,24);printf("Press <ENTER> key to Continue"); //enter for next input
-            getch();
+    gotoxy(maxPrintLeft,24);printf("Press <ENTER> key to Continue"); //enter for next input
+    getch();
 
-            clrRight();
-            if (flag == -1){
-                strcpy(ID, kathigites[flag1].ID);
-                strcpy(surname, kathigites[flag1].surname);
-                strcpy(name, kathigites[flag1].name);
-            }else{
-                do {
-                    gotoxy(maxPrintLeft,9);printf("Enter professor's ID: ");
-                    scanf("%s", ID);
-                    for(i=0; i<N;i++){
-                        str = strcmp(ID, kathigites[i].ID);
-                        if  (str == 0){
+    if (flag == -1){ //if the surname is unique
+        strcpy(ID, kathigites[flag1].ID);
+        strcpy(surname, kathigites[flag1].surname);
+        strcpy(name, kathigites[flag1].name);
+    }else{ //if there is more than one same surnames
+        do {
+            gotoxy(maxPrintLeft,9);printf("Enter professor's ID: "); //ask for ID because is unique
+            scanf("%s", ID);
+                for(i=0; i<N;i++){
+                    str = strcmp(ID, kathigites[i].ID);
+                        if  (str == 0){ //if ID is the same with record kathigites.[]ID
                             strcpy(surname, kathigites[i].surname);
                             strcpy(name, kathigites[i].name);
                             break;
@@ -329,10 +370,124 @@ void facultyPayments(){
                             return;
                         }
                     }
-                } while (str != 0);
+                } while (str != 0);//while the ID is wrong
             }
 
-    
+
+    fp1 = fopen("assignment.txt", "r");
+    if (fp1 == NULL){//checks for errors on opening file
+        clrRight();
+        gotoxy(maxPrintLeft, 9);printf("Problem opening the file");
+        exit (2);
+    }
+    N1=0;//initialized line counter
+    i=0;
+    while (!feof(fp1)){
+        fscanf(fp1, "%s %s %s %s %d", subj, lastname, firstname, class1, &fhours);
+            if ((!(strcmp(lastname,surname))) &&  (!(strcmp(firstname,name)))){ //scans file for specific surname and name
+                N1++; //counts how many times founds the specific surname and name in the file
+            }
+    }
+    if (N1==0){//if there is no record with these items
+        gotoxy(maxPrintLeft, 7);printf("The are is no subjects assigned to professor %s %s", surname, name);
+        gotoxy(maxPrintLeft, 8);printf("Press any key to continue...");
+        getch();
+        clrRight();
+        return;
+    }
+    anathesi = (assign*)malloc(N1*sizeof(assign)); //memory allocation
+    if (anathesi==NULL){ // check for memory
+            printf("There is no enough memory");
+            exit (2);
+    }
+    fseek(fp1,0,SEEK_SET); //returns the file position pointer at the beginning of the file
+    for(i=0;i<N1;){
+        fscanf(fp1, "%s %s %s %s %d", subj, lastname, firstname, class1, &fhours);
+            if ((!(strcmp(lastname,surname))) &&  (!(strcmp(firstname,name)))) {
+                strcpy(anathesi[i].subj,subj);
+                strcpy(anathesi[i].lastname, lastname);
+                strcpy(anathesi[i].firstname, firstname);
+                strcpy(anathesi[i].class1,class1);
+                anathesi[i].fhours  =  fhours  ;
+                i++;
+            }
+        }
+        clrRight();
+    fclose(fp1);
+
+    gotoxy(maxPrintLeft, 7);printf("Type year: ");
+    scanf("%d", &year);
+    gotoxy(maxPrintLeft, 8);printf("Type month: ");
+    scanf("%d",&month);
+
+    fp2 = fopen("program.txt", "r");
+
+    if (fp2 == NULL ){
+        gotoxy(maxPrintLeft, 9);printf("Problem opening the file");
+        exit (2);
+    }
+    clrRight(); i=0;
+    N2=0;//initialized line counter
+        while (!feof(fp2)){
+            fscanf(fp2, "%d %d %d %s %s %s %s %d", &dd, &mm, &yyyy, subj2, lastname2, firstname2, class2, &mhours);
+                if ((!(strcmp(lastname2,surname))) &&  (!(strcmp(firstname2,name))) && (year == yyyy) && (month == mm)){
+                    N2++;
+                }
+        }
+        programma = (pro*)malloc(N2*sizeof(pro)); //memory allocation
+            if (programma == NULL){ // check for memory
+                printf("There is no enough memory");
+                exit (2);
+            }
+            fseek(fp2,0,SEEK_SET); //returns the file position pointer at the beginning of the file
+            for(i=0;i<N2;){
+                fscanf(fp2, "%d %d %d %s %s %s %s %d", &dd, &mm, &yyyy, subj2, lastname2, firstname2, class2, &mhours);
+                if ((!(strcmp(lastname2,surname))) &&  (!(strcmp(firstname2,name))) && (year == yyyy) && (month == mm)){
+                    programma[i].dd  =  dd;
+                    programma[i].mm  =  mm;
+                    programma[i].yyyy  =  yyyy;
+                    strcpy(programma[i].subject2,subj2);
+                    strcpy(programma[i].lastname2, lastname2);
+                    strcpy(programma[i].firstname2, firstname2);
+                    strcpy(programma[i].class2,class2);
+                    programma[i].mhours  =  mhours;
+                    wres = wres + programma[i].mhours; //add monthly hours
+                    i++;
+                }
+            }
+char payFile[40];
+FILE *pay;
+
+sprintf(payFile,"\\\\192.168.1.2\\share\\Payments\\%s_%s_%d_%d.txt", lastname, firstname, mm, yyyy);
+pay=fopen(payFile,"w");
+    if (pay == NULL){
+        gotoxy(maxPrintLeft, 20);printf("Problem with file opening");
+        exit(2);
+    }
+fprintf(pay,"\t\t\t  Payments for %d/%d \n",mm,yyyy);
+fprintf(pay, "Unit: NCOA \n\n");
+fprintf(pay, "Date: \n\n");
+fprintf(pay, "\t\t\t Statement of Monthly Teaching\n\n");
+
+const char* minas = mmToMonth(mm);
+
+fprintf(pay, "\t 1. Assured that %s %s with identification number %s, in the month of %s %d taught at the "
+        "<<Non Commissioned Officer Academy>>, %d hours in accordance with Order F.456/E.6658/456 as analyzed below:\n\n", lastname, firstname, ID, minas, yyyy, wres);
+fprintf(pay, "\t DATE \t SUBJECT \t Hours\n");
+fprintf(pay, "\t ----------------------------------\n");
+    for (i=0;i<N2;i++){
+        fprintf(pay,"\t %d/%d \t%s \t %d\n", programma[i].dd, programma[i].mm, programma[i].subject2, programma[i].mhours);
+    }
+fprintf(pay, "\n\t 2. Assured that %s %s with identification number %s, in the month of %d %d taught at the "
+        "<<Non Commissioned Officer Academy>>, %d hours in accordance with Order F.456/E.6658/456 as analyzed below:\n\n", lastname, firstname, ID, mm, yyyy, wres);
+fprintf(pay, "\t 3. Assured that %s %s with identification number %s, in the month of %d %d taught at the "
+        "<<Non Commissioned Officer Academy>>, %d hours in accordance with Order F.456/E.6658/456 as analyzed below:\n\n\n", lastname, firstname, ID, mm, yyyy, wres);
+fprintf(pay, "\t Supervisor \t\t Director \t\t Commander");
+fclose(pay);
+
+free(kathigites);
+free(anathesi);
+free(programma);
 }
 
 
