@@ -4,20 +4,18 @@
 #include <stdlib.h>
 #include <windows.h>
 
-
-
 #define maxID 15
 #define maxSurname 30
 #define maxName 25
 #define maxFname 25
 #define maxRank 10
-#define maxCondition 25
-#define maxDegree 25
+#define maxCondition 10
+#define maxDegree 10
 #define maxAddress 30
 #define maxCity 25
 #define maxPhone 15
 #define maxEnable 5
-#define maxSubject 30
+#define maxSubject 15
 #define maxClass 10
 #define maxPrintLeft 37
 
@@ -25,7 +23,6 @@
 
 
 typedef struct faculty{
-    int sn;
     char ID[maxID];
     char surname[maxSurname];
     char name[maxName];
@@ -63,40 +60,38 @@ typedef struct assignement{
     }assign;
 assign *anathesi;
 
-void ClearConsoleToColors(int ForgC, int BackC)
+void ConsoleColors(int foreGround, int backGround) //forground and background colors
 {
-     WORD wColor = ((BackC & 0x0F) << 4) + (ForgC & 0x0F);
-     ///Get the handle to the current output buffer...
+     WORD wColor = ((backGround & 0x0F) << 4) + (foreGround & 0x0F);
+     //Retrives handle to standard output device(active console screen buffer
      HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
-     ///This is used to reset the carat/cursor to the top left.
+     //Define coordinates, set at the top left cell of the buffer for (0,0)
      COORD coord = {0, 0};
-     ///A return value... indicating how many chars were written
-     ///   not used but we need to capture this since it will be
-     ///   written anyway (passing NULL causes an access violation).
-     DWORD count;
-     ///This is a structure containing all of the console info
-     /// it is used here to find the size of the console.
+     //Counts how many characters were written
+     DWORD found;
+     //Contains information about console screen buffer
      CONSOLE_SCREEN_BUFFER_INFO csbi;
-     ///Here we will set the current color
+	 // Sets attribute of characters written to the console screen buffer (color attribute)
      SetConsoleTextAttribute(hStdOut, wColor);
      if(GetConsoleScreenBufferInfo(hStdOut, &csbi))
      {
-          ///This fills the buffer with a given character (in this case 32=space).
-          FillConsoleOutputCharacter(hStdOut, (TCHAR) 32, csbi.dwSize.X * csbi.dwSize.Y, coord, &count);
-          FillConsoleOutputAttribute(hStdOut, csbi.wAttributes, csbi.dwSize.X * csbi.dwSize.Y, coord, &count );
-          ///This will set our cursor position for the next print statement.
+          //Fills the buffer with space character.
+          FillConsoleOutputCharacter(hStdOut, (TCHAR) 32, csbi.dwSize.X * csbi.dwSize.Y, coord, &found);
+          //Sets the character attributes
+          FillConsoleOutputAttribute(hStdOut, csbi.wAttributes, csbi.dwSize.X * csbi.dwSize.Y, coord, &found );
+          //Sets the cursor at the beggining {0,0}
           SetConsoleCursorPosition(hStdOut, coord);
      }
      return;
 }
 
-COORD coord = {0,0}; ///set the cordinate to 0, 0 (top-left corner of window);
+COORD coord = {0,0}; //Sets the cursor at the beggining {0,0}
 void gotoxy(int x, int y){
-    coord.X = x; coord.Y = y; /// X and Y coordinates
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+    coord.X = x; coord.Y = y; //defines x and y for coordinates
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord); //sets the cursor to specific position
 }
 
-void drawRectangle(){
+void drawFrame(){
     int i;
     gotoxy(0,0); //up left corner
     printf("%c",201);
@@ -151,7 +146,8 @@ void drawRectangle(){
 
 }
 
-void SetColor(int ForgC)
+
+void FontColor(int foreGround)
 {
      WORD wColor;
      ///We will need this handle to get the current background attribute
@@ -161,24 +157,23 @@ void SetColor(int ForgC)
      ///We use csbi for the wAttributes word.
      if(GetConsoleScreenBufferInfo(hStdOut, &csbi))
      {
-        ///Mask out all but the background attribute, and add in the forgournd color
-          wColor = (csbi.wAttributes & 0xF0) + (ForgC & 0x0F);
+        //Mask out all but the background attribute, and add in the forgournd color
+          wColor = (csbi.wAttributes & 0xF0) + (foreGround & 0x0F);
           SetConsoleTextAttribute(hStdOut, wColor);
      }
      return;
 }
 
-void window(){
-    drawRectangle();
+void label(){
+    drawFrame();
     gotoxy(25,2);
-    SetColor(9);
+    FontColor(9);
     printf("FACULTY RECORD SYSTEM");
     gotoxy(26,3);
     printf("Hellenic Air Force");
     gotoxy(29,4);
     printf("NCO Academy");
     gotoxy(25,24);
-    //SetColor(9);
 }
 
 void clrRight(){//deletes inputs on right section
@@ -200,21 +195,6 @@ for(i=0;i<78;i++){
     }
 }
 }
-
-/*int Lines(FILE *f, char* fileName){
-        char ch;
-        int N = 0;
-
-        f = fopen(fileName, "r");
-        while(!feof(f)){ // counts lines of file
-            ch = fgetc(f);
-            if(ch == '\n'){
-                N++;
-            }
-        }
-        return N;
-        fclose(f);
-}*/
 
 const char * mmToMonth(int m){
     char * minas;
@@ -506,311 +486,9 @@ free(programma);
 }
 
 
-void teachingServicesCertificate(){
-
-    int  i, j, x, z, flag=-3, flag1=0, year=0, month=0, N, N2, line, sn;
-    int aNo, tk;
-    char ID[maxID], surname[maxSurname], name[maxName], fName[maxFname], rank[maxRank], condition[maxCondition], degree[maxDegree],
-            address[maxAddress], town[maxCity], phone[maxPhone], enable[maxEnable];
-    char sSurname[maxSurname], c;
-
-    char  lastname[maxSurname], firstname[maxName];
-
-    int dd, mm, yyyy, mhours, wres=0, *hoursCount, *subjCount,  *countmmH, countH, countHH;
-    char subj2[maxSubject], lastname2[maxSurname], firstname2[maxName], class2[maxClass];
-
-    FILE *fp, *fp2;
-
-    clrRight();
-    fp = fopen("faculties.txt", "r");
-
-    if (fp == NULL ){
-        gotoxy(maxPrintLeft, 9);printf("Problem opening the file faculties.txt");
-        exit (2);
-    }
-    N=0;//initialized line counter
-    while (!feof(fp)){
-        fscanf(fp, "%s %s %s %s %s %s %s %s %d %s %d %s %s", ID, surname, name, fName, rank, condition, degree,
-                address,&aNo, town, &tk, phone, enable);
-        N++;//counts the number of faculties
-    }
-    kathigites = (fac*)malloc(N*sizeof(fac)); //memory allocation
-    if (kathigites == NULL){ // check for memory
-        printf("There is no enough memory");
-        exit (2);
-    }
-    fseek(fp,0,SEEK_SET); //returns the file position pointer at the begining of the file
-    for(i=0; i<N;i++){
-        fscanf(fp, "%s %s %s %s %s %s %s %s %d %s %d %s %s", ID, surname, name, fName, rank, condition, degree,
-                address,&aNo, town, &tk, phone, enable);
-        kathigites[i].sn = 0;
-        strcpy(kathigites[i].ID,ID);
-        strcpy(kathigites[i].surname,surname);
-        strcpy(kathigites[i].name,name);
-        strcpy(kathigites[i].fname,fName);
-        strcpy(kathigites[i].rank,rank);
-        strcpy(kathigites[i].condition,condition);
-        strcpy(kathigites[i].degree,degree);
-        strcpy(kathigites[i].address,address);
-        kathigites[i].aNo=aNo;
-        strcpy(kathigites[i].city,town);
-        kathigites[i].tk=tk;
-        strcpy(kathigites[i].phone,phone);
-        //strcpy(kathigites[i].enable,enable);
-    }
-    fclose(fp);
-
-    do{
-        gotoxy(maxPrintLeft, 9);printf("Enter surname:");
-        scanf("%s", sSurname);
-        int a = strlen(sSurname);//keeps the string length
-        line = 7, x=0; sn = 0, flag = -3;
-        //clrRight();
-            for(j=0; j<i-1; j++){ // search for faculty
-                if (!(strncmp(sSurname, kathigites[j].surname,a))){ // compares the given surname with surnames in the file for the first a letters){ // compares the given surname with surnames in the file
-                    ++x; //counts the same surnames in the file
-                    ++sn;
-                    kathigites[j].sn = sn;
-                    gotoxy(maxPrintLeft,++line);printf("SN: %d - ID:%s",sn, kathigites[j].ID); //if stricmp is true, it types the record
-                    gotoxy(maxPrintLeft,++line);printf("Fullname:%s %s", kathigites[j].surname, kathigites[j].name);
-                    line++;
-
-                    if (x == 1){
-                        flag = j;
-                    }
-                    if (x % 5 == 0 ){ //page handles 5 records
-                        line = 7; //initialized the first line to 7
-                        x = 0;    //initialized the record counter
-                        gotoxy(maxPrintLeft,24);printf("Press ENTER key to Continue"); //for viewing next page of records
-                        getch();
-                        clrRight();
-                    }
-                }
-            }
-
-            if (sn == 0){ //if not found the surname in the record file
-                gotoxy(maxPrintLeft, 9);printf("There is no record with this item");
-                gotoxy(maxPrintLeft, 10);printf("Press any key for re-enter OR (b) for main menu:");
-                c = getch();
-                clrRight();
-                if (c == 'b'){ //back to main menu
-                        clrRight();
-                        return;
-                }
-            }
-
-    }while (sn == 0);//while not found the surname in the file
-
-            gotoxy(maxPrintLeft,24);printf("Press <ENTER> key to Continue"); //enter for next input
-            getch();
-
-            //clrRight();
-            if (sn == 1){ //if the surname is unique
-                strcpy(ID, kathigites[flag].ID);
-                strcpy(surname, kathigites[flag].surname);
-                strcpy(name, kathigites[flag].name);
-            }else{
-                clrRight();
-                do {
-                    gotoxy(maxPrintLeft,7);printf("Enter lecture's SN: "); //
-                    scanf("%d", &sn);//
-                    for(i=0; i<N;i++){
-                        if (sn == kathigites[i].sn){
-                            strcpy(surname, kathigites[i].surname);
-                            strcpy(name, kathigites[i].name);
-                            gotoxy(maxPrintLeft,8);printf("SN: %d - ID:%s",sn, kathigites[i].ID); //if stricmp is true, it types the record
-                            gotoxy(maxPrintLeft,9);printf("Fullname:%s %s", kathigites[i].surname, kathigites[i].name);
-                            break;
-                        }
-                    }
-                }while (sn != kathigites[i].sn);//while the sn is wrong
-            }
-
-    fp2 = fopen("program.txt", "r");
-
-    if (fp2 == NULL ){
-        gotoxy(maxPrintLeft, 9);printf("Problem opening the file");
-        exit (2);
-    }
-        //clrRight();
-        i=0;
-
-        N2=0;//initialized line counter
-            while (!feof(fp2)){
-                fscanf(fp2, "%d %d %d %s %s %s %s %d", &dd, &mm, &yyyy, subj2, lastname2, firstname2, class2, &mhours);
-                    if ((!(strcmp(lastname2,surname))) &&  (!(strcmp(firstname2,name)))){
-                        ++N2;
-                    //gotoxy(maxPrintLeft, 15);printf("N2 = %d", N2);
-                    }
-            }
-            programma = (pro*)malloc(N2*sizeof(pro)); //memory allocation
-            if (programma == NULL){ // check for memory
-                printf("There is no enough memory");
-                exit (2);
-            }
-            fseek(fp2,0,SEEK_SET); //returns the file position pointer at the beginning of the file
-            for(i=0;i<N2;){
-                fscanf(fp2, "%d %d %d %s %s %s %s %d", &dd, &mm, &yyyy, subj2, lastname2, firstname2, class2, &mhours);
-                if ((!(strcmp(lastname2,surname))) &&  (!(strcmp(firstname2,name)))){
-                    programma[i].dd  =  dd;
-                    programma[i].mm  =  mm;
-                    programma[i].yyyy  =  yyyy;
-                    strcpy(programma[i].subject2,subj2);
-                    strcpy(programma[i].lastname2, lastname2);
-                    strcpy(programma[i].firstname2, firstname2);
-                    //strcpy(programma[i].class2,class2);
-                    programma[i].mhours  =  mhours;
-                    //wres = wres + programma[i].mhours; //add monthly hours
-                    i++;
-                }
-            }
-
-            hoursCount = malloc(N2*sizeof(int));
-            subjCount = malloc(N2*sizeof(int));
-            countmmH = malloc(N2*sizeof(int));
-            /*for (i=0;i<N2;i++){
-                hoursCount[i] = -1;
-                subjCount[i] = -1;
-                countmmH[i] = -1;
-                int countS = 1, countHH = 1;
-                countH = programma[i].mhours; //keeps the sum of subject hours for each month
-
-                //finds hours of lessons per month
-
-                for (z=i+1;z<N2;z++){
-
-                    if ((programma[i].yyyy == programma[z].yyyy) && (programma[i].mm == programma[z].mm)){
-                        countH = countH + programma[j].mhours;
-                        countHH++;
-                        hoursCount[z] = 0; //to prevent the item from being used again
-                        gotoxy(maxPrintLeft, 15);printf("i.yyyy, z.yyyy %d  %d %d %d \n",i, z, programma[i].yyyy, programma[z].yyyy);
-                        getch();
-                        clrRight();
-
-
-                    }
-                }
-                //finds the lessons taught by the trainer
-                for (x=i+1;x<N2;x++){
-                    if (!(strcmp(programma[i].subject2, programma[x].subject2))){
-                        countS++;
-                        subjCount[x] = 0;//to prevent the item from being used again
-
-                    }
-                }
-                if (hoursCount[i] != 0){
-                    hoursCount[i] = countHH;
-                    countmmH[i] = countH;
-
-                }
-                if (subjCount[i] != 0){
-                    subjCount[i] = countS;
-                }
-
-                 //gotoxy(maxPrintLeft, 15);printf("countHH %d  %d\n", countHH, programma[i].mm);
-               //getch();
-              // clrRight();
-
-            }
-
-
-*/
-char teachingService[40];
-FILE *tService;
-
-const char* minas = mmToMonth(mm);
-    //printf("%s", minas);
-
-//sprintf(teachingService,"\\\\192.168.1.3\\share\\tService\\%s_%s.txt", lastname2, firstname2);
-sprintf(teachingService,"%s_%s.txt", lastname2, firstname2);
-tService=fopen(teachingService,"w");
-if (tService == NULL){
-        gotoxy(maxPrintLeft, 20);printf("Problem with file opening");
-        exit(2);
-}
-clrRight();
-fprintf(tService, "\t\t\t\t\t\t\t Non-Commissioned Officers Academy\n");
-fprintf(tService, "\t\t\t\t\t\t\t Education Support Division\n");
-fprintf(tService, "\t\t\t\t\t\t\t Tel:+302109999999\n");
-fprintf(tService, "\t\t\t\t\t\t\t Dekeleia, \n\n\n\n");
-fprintf(tService,"\t\t\t Certificate of Teaching Service \n\n");
-
-fprintf(tService, "\t Assured that %s %s %s, taught at the Non-Commissioned Officers Academy,"
-        "as a %s, the following lessons with the corresponding per year and month, hours: \n\n", kathigites[flag1].rank, lastname2, firstname2, kathigites[flag1].condition);
-    for (i=0;i<N2;i++){
-        for(j=i+1;j<N2;j++){
-            if (!(strcmp(programma[i].subject2, programma[j].subject2))){
-                break;
-            }
-        }
-        if (j == N2){
-            fprintf(tService, "%20s \n", programma[i].subject2);
-        }
-    }
-fprintf(tService, "\t ------------------------------------------------------\n");
-fprintf(tService,"\t \t MONTH \t \t YEAR \t HOURS \t COMINGS\n");
-fprintf(tService, "\t ------------------------------------------------------\n");
-    /*for (i=0;i<N2;i++)
-    {
-        if (hoursCount[i] == 1)
-        {
-            fprintf(tService,"\t %d %d\n", programma[i].yyyy, programma[i].mm);
-            //printf("\t %d \n", hoursCount[i]);
-        }
-    }*/
-    int countSynHH = 0, comingsSyn = 0;
-    countHH = programma[0].mhours;
-    int comings=0;
-    for(i = 0; i < N2; i++) {
-        for(j = i+1; j < N2; j++) {
-            if((programma[i].mm == programma[j].mm) && (programma[i].yyyy == programma[j].yyyy)){
-               //finds duplicate elements
-               countHH =  countHH + programma[j].mhours;
-               ++comings;
-               //gotoxy(maxPrintLeft, 15);printf("i j countHH %d %d %d\n",i, j, countHH);
-               //getch();
-               //clrRight();
-               break;
-            }
-        }
-
-        //Hit the end of the array
-        if(j == N2)
-        {
-           fprintf(tService,"\t %15s %12d %6d %8d\n", mmToMonth(programma[i].mm), programma[i].yyyy, countHH, comings);
-           fprintf(tService, "\t ------------------------------------------------------\n");
-            //gotoxy(maxPrintLeft, 15);printf("i j  %d %d\n",i, j);
-            //getch();
-            //clrRight();
-            //   countHH = 0;
-            //gotoxy(maxPrintLeft, 15);printf("i j countHH %d %d %d\n",i, j, countHH);
-            //getch();
-            //clrRight();
-            countSynHH = countSynHH + countHH;
-            comingsSyn = comingsSyn + comings;
-            countHH = programma[i+1].mhours;
-            comings = 0;
-        }
-    }
-    fprintf(tService,"\t \t TOTAL: %20d %8d\n", countSynHH, comingsSyn);
-    fprintf(tService, "\t ------------------------------------------------------\n");
-
-fprintf(tService, "\n\n\t Supervisor \t\t Director \t\t Commander");
-fclose(tService);
-
-free(kathigites);
-free(anathesi);
-free(programma);
-
-}
-
-
-
-
-
-void main_window(){
+void main_menu(){
     int choice, x=2;
-    SetColor(4);
+    FontColor(4);
 
     while(1){
         gotoxy(x,8);printf("1. Faculty Payments");
@@ -824,10 +502,10 @@ void main_window(){
             case 1:
                 facultyPayments();
                 break;
-            case 2:
+            /*case 2:
                 teachingServicesCertificate();
                 break;
-            /*case 3:
+            case 3:
                 subjectsRemainingHours();
                 break;
             case 4:
@@ -840,11 +518,12 @@ void main_window(){
     }
 }
 
+
 int main()
 {
-    ClearConsoleToColors(17,15);
-    window();
-    main_window();
+    ConsoleColors(17,15);
+    label();
+    main_menu();
     gotoxy(0,25);
 
     return 0;
