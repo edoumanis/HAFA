@@ -7,4 +7,8 @@ There is option to print a nominal or total training staff certifications.
 
 No 2 Saves to text file, the training service with a breakdown per month, hour, and comings.
 
+No 3 Saves to text file the self affirmation form for teaching.
+
+No 4 Exports report of remaining hours of teaching.
+
 For surname searching you can pass only the fisrt letters.
