@@ -1,55 +1,126 @@
-  Economics    Panagiotopoulos    Panagiotis     HLEK1    75
-  Management     Alexandrou       Alexandros     HLEK1    60
-  Humanities   Paraskevopoulou      Maria        HLEK2    80
-   History         Agiotis        Dimitrios      HLEK2    55
-   CompSci         Agiotis        Dimitrios      HLEK3    90
-  Management   Paraskevopoulou      Maria        HLEK3    85
-   ForLang       Alexandrou       Alexandros      MET1    80
-   History     Panagiotopoulos    Panagiotis      MET1    75
-   History       Mavropoulos      Dionisios       MET2    45
-   ForLang         Kavadas         Swtirios       MET2    55
-  Management        Tsali           Nefeli        MET3    40
-   CompSci       Larentzakis        Dimos         MET3    55
-   History       Panagiotou       Panagiotis      MHX1    45
-  Humanities     Larentzakis        Dimos         MHX1    85
-  Management      Mavropoulos      Dionisios      MHX2    40
-  Economics      Avagianidis        Babis         MHX2    50
-     GIS         Avagianidis        Babis         MHX3    65
-   Physics        Ioannou          Kostas         MHX3    50
-   CompSci       Larentzakis        Dimos        MMMM1    90
-   CompSci       Panagiotou       Panagiotis     MMMM1    65
-  Economics      Larentzakis        Dimos        MMMM2    75
-   ForLang          Tsali           Nefeli       MMMM2    60
-   ForLang         Kavadas         Swtirios      MMMM3    80
-  Economics      Mavropoulos      Dionisios      MMMM3    50
-   CompSci         Andreou         Stavros        OPL1    50
-   CompSci       Alexandrou       Alexandros      OPL1    80
-   Physics         Ioannou       Konstantinos     OPL2    75
-     GIS           Ioannou          Marios        OPL2    55
-  Humanities       Ioannou       Konstantinos     OPL3    80
-  Management       Ioannou          Marios        OPL3    60
-   CompSci         Ioannou        Aikaterini     PLHR1    50
-   History         Ioannou          Kostas       PLHR1    55
- Engineering      Dimitriou        Dimitra       PLHR2    60
-  Management       Ioannou         Dimitra       PLHR2    85
-     GIS           Ioannou         Dimitra       PLHR3    65
-   History         Kavadas          Kostas       PLHR3    75
- Aeronautics       Kavadas          Kostas        SAE1    50
- Building AP       Ioannou         Dimitra        SAE1    50
-   CompSci        Dimitriou        Dimitra        SAE1    55
-   ForLang         Ioannou         Dimitra        SAE1    55
- Aeronautics       Ioannou          Kostas        SAE2    85
-     Law           Ioannou          Marios        SAE2    55
-  Economics        Ioannou       Konstantinos     SAE2    50
-  Humanities       Ioannou        Aikaterini      SAE2    85
-     Law           Ioannou          Marios        SAE3    55
-   Physics       Theodosiou       Theodosis       SAE3    75
-   CompSci         Andreou         Stavros        SAE3    65
-   Physics         Ioannou       Konstantinos     SAE3    50
- Aeronautics     Athanasiou       Athanasios      TH1     85
-   ForLang         Kavadas         Swtirios       TH1     60
- Mathematica       Ioannou        Dimitrios       TH2     55
-  Economics      Larentzakis        Dimos         TH2     50
- Engineering       Kavadas         Ioannis        TH3     60
- Mathematica      Sofianou          Sofia         TH3     55
-   CompSci       Larentzakis        Dimos         TH3     80
+History                     Kavadas           Ioannis          MHXT1        70
+Mathematics                Iosifidis           Iosif           MHXT1        80
+Gymnastics                  Andreou           Stavros          MHXT1        80
+Aerodynamics                Ioannou           Marios           MHXT1        75
+Aircraft                Panagiotopoulos     Panagiotis         MHXT1        70
+Lubricants              Paraskevopoulou        Maria           MHXT1        75
+Algebra                    Sofianou            Sofia           MHXT2        70
+Physics                    Dimitriou          Dimitra          MHXT2        70
+Chemistry                 Theodosiou         Theodosis         MHXT2        80
+Design                    Pharmakides        Nikolaos          MHXT2        80
+Structure                   Loulias          Euaggelos         MHXT2        80
+Engine_Elements            Solakian           Labros           MHXT2        85
+Management                  Ioannou        Konstantinos        MHXT3        80
+Computer_Science          Alexandrou        Alexandros         MHXT3        75
+Humanities                  Siebos           Euaggelos         MHXT3        80
+Material_Design           Pharmakides        Nikolaos          MHXT3        80
+Electrotechnics             Ioannou          Dimitrios         MHXT3        85
+Thermodynamics             Solakian           Labros           MHXT3        80
+History                     Ioannou        Konstantinos        MMMM1        70
+Mathematics                 Kavadas           Kostas           MMMM1        70
+Gymnastics                Avagianidis          Babis           MMMM1        80
+Electrotechnics             Ioannou          Dimitrios         MMMM1        85
+Thermodynamics              Kavada          Aikaterini         MMMM1        80
+Lubricants                Panagiotou          Dimitra          MMMM1        75
+Algebra                     Liaskas          Mathaios          MMMM2        70
+Physics                     Ioannou           Ioannis          MMMM2        70
+Chemistry                  Farmakis           Vasilis          MMMM2        70
+Engine_design              Iosifidis          Kostas           MMMM2        80
+Vehicles                    Loulias          Euaggelos         MMMM2        75
+English_Term                Kavada          Aikaterini         MMMM2        85
+Management                  Ioannou         Aikaterini         MMMM3        70
+Computer_Science          Plagianakos        Dimitrios         MMMM3        85
+Humanities                 Kasimatis         Nikolaos          MMMM3        70
+Air_Conditioning          Raptopoulos         Ioannis          MMMM3        75
+Fluid_Mechanics           Panagiotou          Dimitra          MMMM3        85
+Aerodynamics             Hristodoulou         Ioannis          MMMM3        75
+History                     Ioannou         Aikaterini         HLEK1        70
+Mathematics                 Ioannou           Marios           HLEK1        70
+Gymnastics                Athanasiou        Athanasios         HLEK1        80
+Analog_Elec                Kamateros       Konstantinos        HLEK1        85
+Electrotechnics            Laoutaris          Kosmas           HLEK1        85
+Electric_Engines          Alexandrou        Alexandros         HLEK1        75
+Management                  Kavadas           Ioannis          HLEK2        70
+Computer_Science          Alexandrou        Alexandros         HLEK2        75
+Humanities                  Siebos           Euaggelos         HLEK2        70
+Digital_Elec                Klapsas          Stergios          HLEK2        85
+Aerodynamics             Hristodoulou         Ioannis          HLEK2        80
+English_Term                Klapsas          Stergios          HLEK2        80
+Algebra                   Kyriakides          Petros           HLEK3        80
+Physics                   Kostantinou        Christos          HLEK3        70
+Chemistry                  Farmakis           Vasilis          HLEK3        70
+Aircrafts_Elec             Kamateros       Konstantinos        HLEK3        85
+Airports_Elec           Nikolakopoulos        Symeon           HLEK3        70
+Cooling_Systems         Nikolakopoulos        Symeon           HLEK3        75
+History                     Ioannou           Dimitra          OPLG1        70
+Mathematics             Panagiotopoulos     Panagiotis         OPLG1        70
+Gymnastics                  Agiotis          Dimitrios         OPLG1        80
+Portable_Arm                Kavadas            Dimos           OPLG1        70
+Digital_Elec               Dimitriou          Marios           OPLG1        75
+Ammunition                  Kavadas            Dimos           OPLG1        85
+Management                  Ioannou           Dimitra          OPLG2        70
+Computer_Science          Alexandrou        Alexandros         OPLG2        85
+Humanities                  Siebos           Euaggelos         OPLG2        70
+Design                     Iosifidis          Kostas           OPLG2        75
+English_Term                Ioannou          Swtirios          OPLG2        85
+Anti_Aircraft               Agiotis          Theodosis         OPLG2        80
+Algebra                Papakonstantinou       Petros           OPLG3        70
+Physics                     Ioannou           Ioannis          OPLG3        70
+Chemistry                   Argyrou           Argyris          OPLG3        70
+Electrotechnics         Panagiotopoulos      Kleanthis         OPLG3        85
+Smart_Weapons             Mavropoulos          Babis           OPLG3        75
+Explosives                  Agiotis          Theodosis         OPLG3        85
+History                     Ioannou           Kostas           SAEG1        70
+Mathematics             Paraskevopoulou        Maria           SAEG1        70
+Gymnastics                  Andreou           Stavros          SAEG1        80
+Prefabrications              Tsali           Athanasia         SAEG1        70
+Electrics               Paraskevopoulou       Aspasia          SAEG1        80
+Roads                     Plagianakos        Dimitrios         SAEG1        85
+Management                  Ioannou           Kostas           SAEG2        70
+Computer_Science             Tsali            Nefeli           SAEG2        85
+Humanities                Oikonomidis        Georgios          SAEG2        70
+Statistics                Avagianidou          Sofia           SAEG2        75
+Law                       Athanasiou          Dimitra          SAEG2        75
+Topography                Plagianakos        Dimitrios         SAEG2        75
+Algebra                   Kyriakides          Petros           SAEG3        70
+Physics                   Kostantinou        Christos          SAEG3        70
+Chemistry                   Argyrou           Argyris          SAEG3        70
+Construction            Paraskevopoulou       Aspasia          SAEG3        80
+Airports                     Tsali           Athanasia         SAEG3        75
+Repairs                   Panagiotou        Panagiotis         SAEG3        85
+History                   Larentzakis          Dimos           THLE1        70
+Mathematics                Sofianou            Sofia           THLE1        70
+Gymnastics                Avagianidis          Babis           THLE1        80
+Electrotechnics         Panagiotopoulos      Kleanthis         THLE1        75
+English_Term                Ioannou          Swtirios          THLE1        85
+Digital_Elec               Sofianos           Kostas           THLE1        80
+Management                Larentzakis          Dimos           THLE2        70
+Computer_Science             Tsali            Nefeli           THLE2        80
+Humanities                Oikonomidis        Georgios          THLE2        70
+DataBases                   Pagidas          Christos          THLE2        85
+Radars                     Sofianos           Kostas           THLE2        75
+Microcomputers              Andreou            Maria           THLE2        80
+Algebra                     Liaskas          Mathaios          THLE3        70
+Physics                    Georgiou           Andreas          THLE3        70
+Chemistry                  Psomiades         Charilaos         THLE3        70
+Communications            Panagiotou        Panagiotis         THLE3        65
+Analog_Elec               Alexandrou          Stavros          THLE3        70
+PC_Principles               Andreou            Maria           THLE3        65
+History                     Kavadas          Swtirios          PLHR1        70
+Mathematics               Theodosiou         Theodosis         PLHR1        70
+Gymnastics                Athanasiou        Athanasios         PLHR1        80
+Operating_Systems         Theodosiou        Panagiotis         PLHR1        70
+Programming               Alexandrou          Stavros          PLHR1        70
+Digital_Elec               Dimitriou          Marios           PLHR1        75
+Algebra                Papakonstantinou       Petros           PLHR2        70
+Physics                    Georgiou           Andreas          PLHR2        70
+Chemistry                  Psomiades         Charilaos         PLHR2        70
+DataBases                   Pagidas          Christos          PLHR2        75
+Statistics                Avagianidou          Sofia           PLHR2        75
+Data_Structures           Theodosiou        Panagiotis         PLHR2        85
+Management                  Kavadas          Swtirios          PLHR3        80
+Computer_Science          Plagianakos        Dimitrios         PLHR3        85
+Humanities                Oikonomidis        Georgios          PLHR3        70
+WEB_Design                Anthemides          Iraklis          PLHR3        80
+Analysis                    Pagidas          Christos          PLHR3        80
+JAVA                      Anthemides          Iraklis          PLHR3        85

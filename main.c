@@ -5,12 +5,11 @@
 #include <windows.h>
 #include <time.h>
 
-
-
 #define maxID 15
 #define maxSurname 30
 #define maxName 25
 #define maxFname 25
+#define maxMname 25
 #define maxRank 10
 #define maxCondition 25
 #define maxDegree 25
@@ -22,14 +21,31 @@
 #define maxClass 10
 #define maxPrintLeft 37
 
+void ConsoleColors(int foreGround, int backGround);
+void gotoxy(int x, int y);
+void drawFrame();
+void FontColor(int foreGround);
+void label();
+void clrRight();
+void clrLeft();
+void facultyPayments();
+void allFacultyPayments();
+void teachingServicesCertificate();
+void facRemainingHours();
+void selfAffirmationForm();
+void allSelfAffirmationForm();
+void window_one();
+void window_three();
+void main_window();
+
+void teachingServicesCertificate();
+
+
 time_t calendar; //data type for storing system time values
 struct tm* cal_info;
 char days[3];
 char months[3];
 char years[5];
-
-void main_window();
-void window_one();
 
 typedef struct faculty{
     int sn;
@@ -37,6 +53,10 @@ typedef struct faculty{
     char surname[maxSurname];
     char name[maxName];
     char fname[maxFname];
+    char mname[maxMname];
+    int db;
+    int mb;
+    int yb;
     char rank[maxRank];
     char condition [maxCondition];
     char degree[maxDegree];
@@ -269,8 +289,8 @@ const char * mmToMonth(int m){
 void facultyPayments(){
 
     int  i, j, x, flag, year=0, month=0, N, N1, N2, line, sn;
-    int aNo, tk;
-    char ID[maxID], surname[maxSurname], name[maxName], fName[maxFname], rank[maxRank], condition[maxCondition], degree[maxDegree],
+    int aNo, tk, db, mb, yb;
+    char ID[maxID], surname[maxSurname], name[maxName], fName[maxFname], mName[maxMname], rank[maxRank], condition[maxCondition], degree[maxDegree],
             address[maxAddress], town[maxCity], phone[maxPhone], enable[maxEnable];
     char sSurname[maxSurname], c;
 
@@ -290,8 +310,8 @@ void facultyPayments(){
     }
     N=0;//initialized line counter
     while (!feof(fp)){
-        fscanf(fp, "%s %s %s %s %s %s %s %s %d %s %d %s %s", ID, surname, name, fName, rank, condition, degree,
-                    address,&aNo, town, &tk, phone, enable);
+        fscanf(fp, "%s %s %s %s %s %d %d %d %s %s %s %s %d %s %d %s %s", ID, surname, name, fName, mName, &db, &mb, &yb, rank, condition, degree,
+                address,&aNo, town, &tk, phone, enable);
             if ((strcmp(enable, "+")) == 0) { //counts line only for enabled professors
                     N++;
             }
@@ -304,7 +324,7 @@ void facultyPayments(){
     }
     fseek(fp,0,SEEK_SET); //returns the file position pointer at the begining of the file
     for(i=0; i<N;){ //raise i only if found enable faculty
-        fscanf(fp, "%s %s %s %s %s %s %s %s %d %s %d %s %s", ID, surname, name, fName, rank, condition, degree,
+        fscanf(fp, "%s %s %s %s %s %d %d %d %s %s %s %s %d %s %d %s %s", ID, surname, name, fName, mName, &db, &mb, &yb, rank, condition, degree,
                 address,&aNo, town, &tk, phone, enable);
             if (strcmp(enable, "+") == 0){ //passing files  data into array(only enable faculties)
                 kathigites[i].sn = 0;
@@ -312,6 +332,10 @@ void facultyPayments(){
                 strcpy(kathigites[i].surname,surname);
                 strcpy(kathigites[i].name,name);
                 strcpy(kathigites[i].fname,fName);
+                strcpy(kathigites[i].mname,mName);
+                kathigites[i].db=db;
+                kathigites[i].mb=mb;
+                kathigites[i].yb=yb;
                 strcpy(kathigites[i].rank,rank);
                 strcpy(kathigites[i].condition,condition);
                 strcpy(kathigites[i].degree,degree);
@@ -390,7 +414,19 @@ void facultyPayments(){
                             break;
                         }
                     }
-                } while (sn != kathigites[i].sn);//while the sn is wrong
+                    if (sn != kathigites[i].sn){
+                        for (int l = 56; l<110; l++){
+                            gotoxy(l,7);printf(" ");
+                        }
+                    gotoxy(maxPrintLeft, 10);printf("Please re-enter SN or press <r> to Return to Main Menu.");
+                    c = getch();
+                    if (c == 'r'){ //back to main menu
+                                clrRight();
+                                return;
+                        }
+                    clrRight();
+                }
+                }while (sn != kathigites[i].sn);//while the sn is wrong
             }
 
 
@@ -466,6 +502,7 @@ void facultyPayments(){
                         clrRight();
                         return;
                 }
+            fseek(fp2,0,SEEK_SET);//returns pointer to the begging
             clrRight();
         }
    }while(N2 == 0);
@@ -527,6 +564,7 @@ fprintf(tService, "\n\t 3. For the purposes of calculating the rights of the abo
         " have been taken into account.\n\n\n");
 fprintf(tService, "\t Supervisor \t\t Director \t\t Commander");
 fclose(tService);
+clrRight();
 
 free(kathigites);
 free(anathesi);
@@ -536,19 +574,18 @@ free(programma);
 
 void allFacultyPayments(){
 
-    int  i, j, x, flag=0, year=0, month=0, N, N1, N2, line, sn;
-    int aNo, tk;
-    char ID[maxID], surname[maxSurname], name[maxName], fName[maxFname], rank[maxRank], condition[maxCondition], degree[maxDegree],
+    int  i, j, flag=0, year=0, month=0, N, N2;
+    int aNo, tk, db, mb, yb;
+    char ID[maxID], surname[maxSurname], name[maxName], fName[maxFname], mName[maxMname], rank[maxRank], condition[maxCondition], degree[maxDegree],
             address[maxAddress], town[maxCity], phone[maxPhone], enable[maxEnable];
-    char sSurname[maxSurname], c;
+    char c;
 
-    int fhours;
-    char subj[maxSubject], lastname[maxSurname], firstname[maxName], class1[maxClass];
+    char lastname[maxSurname], firstname[maxName];
 
     int dd, mm, yyyy, mhours, wres=0;
     char subj2[maxSubject], lastname2[maxSurname], firstname2[maxName], class2[maxClass];
 
-    FILE *fp, *fp1, *fp2;
+    FILE *fp, *fp2;
 
     fp = fopen("faculties.txt", "r");
 
@@ -558,8 +595,8 @@ void allFacultyPayments(){
     }
     N=0;//initialized line counter
     while (!feof(fp)){
-        fscanf(fp, "%s %s %s %s %s %s %s %s %d %s %d %s %s", ID, surname, name, fName, rank, condition, degree,
-                    address,&aNo, town, &tk, phone, enable);
+        fscanf(fp, "%s %s %s %s %s %d %d %d %s %s %s %s %d %s %d %s %s", ID, surname, name, fName, mName, &db, &mb, &yb, rank, condition, degree,
+                address,&aNo, town, &tk, phone, enable);
             if ((strcmp(enable, "+")) == 0) { //counts line only for enabled professors
                     N++;
             }
@@ -572,7 +609,7 @@ void allFacultyPayments(){
    }
     fseek(fp,0,SEEK_SET); //returns the file position pointer at the begining of the file
     for(i=0; i<N;){ //raise i only if found enable faculty
-        fscanf(fp, "%s %s %s %s %s %s %s %s %d %s %d %s %s", ID, surname, name, fName, rank, condition, degree,
+        fscanf(fp, "%s %s %s %s %s %d %d %d %s %s %s %s %d %s %d %s %s", ID, surname, name, fName, mName, &db, &mb, &yb, rank, condition, degree,
                 address,&aNo, town, &tk, phone, enable);
             if (strcmp(enable, "+") == 0){ //passing files  data into array(only enable faculties)
                 kathigites[i].sn = 0;
@@ -580,6 +617,10 @@ void allFacultyPayments(){
                 strcpy(kathigites[i].surname,surname);
                 strcpy(kathigites[i].name,name);
                 strcpy(kathigites[i].fname,fName);
+                strcpy(kathigites[i].mname,mName);
+                kathigites[i].db=db;
+                kathigites[i].mb=mb;
+                kathigites[i].yb=yb;
                 strcpy(kathigites[i].rank,rank);
                 strcpy(kathigites[i].condition,condition);
                 strcpy(kathigites[i].degree,degree);
@@ -720,6 +761,7 @@ for (i=0;i<N2;i++){// founds duplicate records in programma[]
             countN = 0;
         }
 }
+clrRight();
 
 fclose(tService);
 fclose(fp2);
@@ -729,11 +771,12 @@ free(anathesi);
 free(programma);
 }
 
+
 void teachingServicesCertificate(){
 
     int  i, j, x, flag=-3, flag1=0, N, N2, line, sn;
-    int aNo, tk;
-    char ID[maxID], surname[maxSurname], name[maxName], fName[maxFname], rank[maxRank], condition[maxCondition], degree[maxDegree],
+    int aNo, tk, db, mb, yb;
+    char ID[maxID], surname[maxSurname], name[maxName], fName[maxFname], mName[maxMname],rank[maxRank], condition[maxCondition], degree[maxDegree],
             address[maxAddress], town[maxCity], phone[maxPhone], enable[maxEnable];
     char sSurname[maxSurname], c;
     int dd, mm, yyyy, mhours, countHH;
@@ -750,7 +793,7 @@ void teachingServicesCertificate(){
     }
     N=0;//initialized line counter
     while (!feof(fp)){
-        fscanf(fp, "%s %s %s %s %s %s %s %s %d %s %d %s %s", ID, surname, name, fName, rank, condition, degree,
+         fscanf(fp, "%s %s %s %s %s %d %d %d %s %s %s %s %d %s %d %s %s", ID, surname, name, fName, mName, &db, &mb, &yb, rank, condition, degree,
                 address,&aNo, town, &tk, phone, enable);
         N++;//counts the number of faculties
     }
@@ -761,13 +804,17 @@ void teachingServicesCertificate(){
     }
     fseek(fp,0,SEEK_SET); //returns the file position pointer at the begining of the file
     for(i=0; i<N;i++){
-        fscanf(fp, "%s %s %s %s %s %s %s %s %d %s %d %s %s", ID, surname, name, fName, rank, condition, degree,
+         fscanf(fp, "%s %s %s %s %s %d %d %d %s %s %s %s %d %s %d %s %s", ID, surname, name, fName, mName, &db, &mb, &yb, rank, condition, degree,
                 address,&aNo, town, &tk, phone, enable);
         kathigites[i].sn = 0;
         strcpy(kathigites[i].ID,ID);
         strcpy(kathigites[i].surname,surname);
         strcpy(kathigites[i].name,name);
         strcpy(kathigites[i].fname,fName);
+        strcpy(kathigites[i].mname,mName);
+        kathigites[i].db=db;
+        kathigites[i].mb=mb;
+        kathigites[i].yb=yb;
         strcpy(kathigites[i].rank,rank);
         strcpy(kathigites[i].condition,condition);
         strcpy(kathigites[i].degree,degree);
@@ -776,7 +823,7 @@ void teachingServicesCertificate(){
         strcpy(kathigites[i].city,town);
         kathigites[i].tk=tk;
         strcpy(kathigites[i].phone,phone);
-        //strcpy(kathigites[i].enable,enable);
+        strcpy(kathigites[i].enable,enable);
     }
     fclose(fp);
 
@@ -902,10 +949,10 @@ strftime(days, 3, "%d", cal_info);
 strftime(months, 3, "%m", cal_info);
 strftime(years, 5, "%y", cal_info);
 clrRight();
-fprintf(tService, "\t\t\t\t\t\t\t Non-Commissioned Officers Academy\n");
-fprintf(tService, "\t\t\t\t\t\t\t Education Support Division\n");
-fprintf(tService, "\t\t\t\t\t\t\t Tel:+302109999999\n");
-fprintf(tService, "\t\t\t\t\t\t\t Dekeleia, %s/%s/%s \n\n\n\n", days, months, years);
+fprintf(tService, "\t\t\t\t\t\tNon-Commissioned Officers Academy\n");
+fprintf(tService, "\t\t\t\t\t\tEducation Support Division\n");
+fprintf(tService, "\t\t\t\t\t\tTel:+302109999999\n");
+fprintf(tService, "\t\t\t\t\t\tDekeleia, %s/%s/%s \n\n\n\n", days, months, years);
 fprintf(tService,"\t\t\t Certificate of Teaching Service \n\n");
 
 fprintf(tService, "\t Assured that %s %s %s, taught at the Non-Commissioned Officers Academy,"
@@ -921,7 +968,7 @@ fprintf(tService, "\t Assured that %s %s %s, taught at the Non-Commissioned Offi
         }
     }
 fprintf(tService, "\t ------------------------------------------------------\n");
-fprintf(tService,"\t \t MONTH \t \t YEAR \t HOURS \t COMINGS\n");
+fprintf(tService,"\t %-17s %10s %8s %8s\n", "MONTH", "YEAR", "HOURS", "COMINGS");
 fprintf(tService, "\t ------------------------------------------------------\n");
 
     int countSynHH = 0, comingsSyn = 0, comings=0;;
@@ -940,7 +987,7 @@ fprintf(tService, "\t ------------------------------------------------------\n")
         //Hit the end of the array
         if(j == N2)
         {
-           fprintf(tService,"\t %15s %12d %6d %8d\n", mmToMonth(programma[i].mm), programma[i].yyyy, countHH, comings);
+           fprintf(tService,"\t %-17s %10d %6d %8d\n", mmToMonth(programma[i].mm), programma[i].yyyy, countHH, comings);
            fprintf(tService, "\t ------------------------------------------------------\n");
             countSynHH = countSynHH + countHH;//total teaching hours
             comingsSyn = comingsSyn + comings;//total comings
@@ -948,7 +995,7 @@ fprintf(tService, "\t ------------------------------------------------------\n")
             comings = 0; //initialized month comings
         }
     }
-    fprintf(tService,"\t \t TOTAL: %20d %8d\n", countSynHH, comingsSyn);
+    fprintf(tService,"\t %-17s %17d %8d\n", "TOTAL:", countSynHH, comingsSyn);
     fprintf(tService, "\t ------------------------------------------------------\n");
 
 fprintf(tService, "\n\n\t Supervisor \t\t Director \t\t Commander");
@@ -957,6 +1004,570 @@ fclose(tService);
 free(kathigites);
 free(anathesi);
 free(programma);
+
+}
+
+
+void facRemainingHours(){
+FILE *fp1, *fp2;
+int N1, N2, i, j, z, y, k, countHHH = 0, *anathesiFlag;
+
+int fhours;
+char subj[maxSubject], lastname[maxSurname], firstname[maxName], class1[maxClass];
+
+int dd, mm, yyyy, mhours, wres=0;
+char subj2[maxSubject], lastname2[maxSurname], firstname2[maxName], class2[maxClass];
+
+
+
+ fp1 = fopen("assignment.txt", "r");
+ fp2 = fopen("program.txt", "r");
+    if ((fp1 == NULL) || (fp2 == NULL)){//checks for errors on opening file
+        clrRight();
+        gotoxy(maxPrintLeft, 9);printf("Problem opening the file");
+        exit (2);
+    }
+    N1=0;
+    N2=0;   //initialized line counters
+    while (!feof(fp1)){
+        fscanf(fp1, "%s %s %s %s %d", subj, lastname, firstname, class1, &fhours);
+                N1++; //counts the records of the file
+
+    }
+     //memory allocation
+    while (!feof(fp2)){
+            fscanf(fp2, "%d %d %d %s %s %s %s %d", &dd, &mm, &yyyy, subj2, lastname2, firstname2, class2, &mhours);
+                    N2++;//counts the records of the file
+    }
+    anathesi = (assign*)malloc(N1*sizeof(assign));
+    programma = (pro*)malloc(N2*sizeof(pro));
+    if ((anathesi==NULL) || (programma==NULL)){ // check for memory
+            printf("There is no enough memory");
+            exit (2);
+    }
+    fseek(fp1,0,SEEK_SET); //returns the file position pointer at the beginning of the file
+    fseek(fp2,0,SEEK_SET); //returns the file position pointer at the beginning of the file
+    for(i=0;i<N1;i++){
+        fscanf(fp1, "%s %s %s %s %d", subj, lastname, firstname, class1, &fhours);
+                strcpy(anathesi[i].subj,subj);
+                strcpy(anathesi[i].lastname, lastname);
+                strcpy(anathesi[i].firstname, firstname);
+                strcpy(anathesi[i].class1,class1);
+                anathesi[i].fhours  =  fhours;
+    }
+    for(i=0;i<N2;i++){
+        fscanf(fp2, "%d %d %d %s %s %s %s %d", &dd, &mm, &yyyy, subj2, lastname2, firstname2, class2, &mhours);
+                programma[i].dd  =  dd;
+                programma[i].mm  =  mm;
+                programma[i].yyyy  =  yyyy;
+                strcpy(programma[i].subject2,subj2);
+                strcpy(programma[i].lastname2, lastname2);
+                strcpy(programma[i].firstname2, firstname2);
+                strcpy(programma[i].class2,class2);
+                programma[i].mhours  =  mhours;
+                wres = wres + programma[i].mhours; //add monthly hours
+
+    }
+
+    fclose(fp1);
+    fclose(fp2);
+
+    char payFile[40];
+    FILE *tService;
+
+    time(&calendar); //system date
+    cal_info = localtime(&calendar);
+    strftime(days, 3, "%d", cal_info);
+    strftime(months, 3, "%m", cal_info);
+    strftime(years, 5, "%Y", cal_info);
+
+    //sprintf(payFile,"\\\\192.168.1.2\\share\\Payments\\%s_%s_%d_%d.txt", lastname, firstname, mm, yyyy);
+    sprintf(payFile,"remaining_%s_%s_%s.txt", days, months, years);
+    tService=fopen(payFile,"w");
+        if (tService == NULL){
+            gotoxy(maxPrintLeft, 20);printf("Problem with file opening");
+            exit(2);
+        }
+
+    anathesiFlag = calloc(N2, sizeof(int)*N2);
+    for (z=0;z<N2;z++){
+                    countHHH = programma[z].mhours;
+                    for(y=z+1;y<N2;y++){ //vriskei tin mia ana eidos eggrafi
+                        if ((!(strcmp(programma[z].class2, programma[y].class2))) && (!(strcmp(programma[z].subject2, programma[y].subject2))))
+                        {
+                            countHHH = countHHH + programma[y].mhours; //prosthetei tis wres
+                            anathesiFlag[y] = -1; //gia na min tin xanametrisei
+                        }
+                    }
+                    if (anathesiFlag[z] != -1)
+                    {
+                        anathesiFlag[z] = countHHH;
+                        countHHH = 0;
+                    }
+                }
+
+    fprintf(tService, "Unit: NCOA \n");
+    fprintf(tService, "Date: %s/%s/%s \n\n", days, months, years);
+    fprintf(tService, "\t\t\t Management of Teaching Hours\n\n");
+
+    for (i=0;i<N1;i++){
+        for (j=i+1;j<N1;j++){
+            if ((!(strcmp(anathesi[i].class1,anathesi[j].class1)))){
+                break;
+            }
+        }
+        if (j == N1){
+                fprintf(tService, "%s\n", anathesi[i].class1);
+                fprintf(tService, "%-19s %-17s %5s %5s %5s %8s\n", "PROFESSOR",  "SUBJECT", "HOURS", "EXEC",  "REM", "PERC");
+                fprintf(tService, "------------------------------------------------------------------\n");
+                 for (k=0;k<N1-1;k++){
+                    if ((!(strcmp(anathesi[i].class1, anathesi[k].class1)))){
+                        for (z=0;z<N2;z++){
+                                if ((!(strcmp(anathesi[i].class1, programma[z].class2))) && (!(strcmp(anathesi[k].subj, programma[z].subject2)))){
+                                   fprintf(tService, "%.1s.%-17s %-17s %d %7d %6d %10.2f\n", anathesi[k].firstname, anathesi[k].lastname, anathesi[k].subj, anathesi[k].fhours, anathesiFlag[z], anathesi[k].fhours-anathesiFlag[z], (anathesiFlag[z]*100.0/anathesi[k].fhours));
+                                   break;
+                                }
+                        }
+                    }
+                }
+        }
+        fprintf(tService, "\n");
+    }
+  fclose(tService);
+}
+
+void selfAffirmationForm(){
+
+FILE *fp, *fp2;
+int i, x, j, N, N2, line, sn, flag;
+char c, sSurname[maxSurname];
+int tk, aNo, db, mb, yb;
+char ID[maxID], surname[maxSurname], name[maxName], fName[maxFname], mName[maxMname],rank[maxRank], condition[maxCondition], degree[maxDegree],
+            address[maxAddress], town[maxCity], phone[maxPhone], enable[maxEnable];
+
+int dd, mm, yyyy, mhours, wres=0, year = 0, month = 0;
+char subj2[maxSubject], lastname2[maxSurname], firstname2[maxName], class2[maxClass];
+
+
+ fp = fopen("faculties.txt", "r");
+
+    if (fp == NULL ){
+        gotoxy(maxPrintLeft, 9);printf("Problem opening the file faculties.txt");
+        exit (2);
+    }
+    N=0;//initialized line counter
+    while (!feof(fp)){
+        fscanf(fp, "%s %s %s %s %s %d %d %d %s %s %s %s %d %s %d %s %s", ID, surname, name, fName, mName, &db, &mb, &yb, rank, condition, degree,
+                address,&aNo, town, &tk, phone, enable);
+        N++;//counts the number of faculties
+    }
+    kathigites = (fac*)malloc(N*sizeof(fac)); //memory allocation
+    if (kathigites == NULL){ // check for memory
+        printf("There is no enough memory");
+        exit (2);
+    }
+    fseek(fp,0,SEEK_SET); //returns the file position pointer at the begining of the file
+    for(i=0; i<N;i++){
+        fscanf(fp, "%s %s %s %s %s %d %d %d %s %s %s %s %d %s %d %s %s", ID, surname, name, fName, mName, &db, &mb, &yb, rank, condition, degree,
+                address,&aNo, town, &tk, phone, enable);
+        kathigites[i].sn = 0;
+        strcpy(kathigites[i].ID,ID);
+        strcpy(kathigites[i].surname,surname);
+        strcpy(kathigites[i].name,name);
+        strcpy(kathigites[i].fname,fName);
+        strcpy(kathigites[i].mname,mName);
+        kathigites[i].db=db;
+        kathigites[i].mb=mb;
+        kathigites[i].yb=yb;
+        strcpy(kathigites[i].rank,rank);
+        strcpy(kathigites[i].condition,condition);
+        strcpy(kathigites[i].degree,degree);
+        strcpy(kathigites[i].address,address);
+        kathigites[i].aNo=aNo;
+        strcpy(kathigites[i].city,town);
+        kathigites[i].tk=tk;
+        strcpy(kathigites[i].phone,phone);
+        strcpy(kathigites[i].enable,enable);
+    }
+    fclose(fp);
+
+    do{
+        clrRight();
+        gotoxy(maxPrintLeft, 9);printf("Enter surname:");
+        scanf("%s", sSurname);
+        int a = strlen(sSurname);//keeps the string length
+        line = 7, x=0; sn = 0, flag = -3;
+        for(j=0; j<i-1; j++){ // search for faculty
+            if (!(strncmp(sSurname, kathigites[j].surname,a))){ // compares the given surname with surnames in the file for the first a letters
+                ++x; //counts the same surnames in the file
+                ++sn;
+                kathigites[j].sn = sn;
+                gotoxy(maxPrintLeft,++line);printf("SN: %d - ID:%s",sn, kathigites[j].ID);
+                gotoxy(maxPrintLeft,++line);printf("Fullname:%s %s", kathigites[j].surname, kathigites[j].name);
+                line++;
+
+                if (x == 1){
+                    flag = j;
+                }
+
+                if (x % 5 == 0 ){ //page handles 5 records
+                        line = 7; //initialized the first line to 7
+                        x = 0;    //initialized the record counter
+                        gotoxy(maxPrintLeft,24);printf("Press ENTER key to Continue"); //for viewing next page of records
+                        getch();
+                        clrRight();
+                }
+
+            }
+        }
+                //gotoxy(maxPrintLeft,23);printf("sn = %d, katyhigites.sn= %d, j = %d",sn, kathigites[9].sn, j);
+                //getch();
+            if (sn == 0){ //if not found the surname in the record file
+                gotoxy(maxPrintLeft, 9);printf("There is no record with this item");
+                gotoxy(maxPrintLeft, 10);printf("Press any key for re-enter OR (b) for main menu:");
+                c = getch();
+                clrRight();
+                if (c == 'b'){ //back to main menu
+                        clrRight();
+                        return;
+                }
+            }
+    }while (sn == 0);//while not found the surname
+
+    gotoxy(maxPrintLeft,24);printf("Press <ENTER> key to Continue"); //enter for next input
+    getch();
+
+    if (sn == 1){ //if the surname is unique
+        strcpy(ID, kathigites[flag].ID);
+        strcpy(surname, kathigites[flag].surname);
+        strcpy(name, kathigites[flag].name);
+    }else{ //if there is more than one same surnames
+        clrRight();
+
+        do {
+            gotoxy(maxPrintLeft,7);printf("Enter lecture's SN:");
+            scanf("%d", &sn);
+                for(i=0; i<N;i++){
+                        if (sn == kathigites[i].sn){
+                            strcpy(surname, kathigites[i].surname);
+                            strcpy(name, kathigites[i].name);
+                            gotoxy(maxPrintLeft,8);printf("SN: %d - ID:%s",sn, kathigites[i].ID); //if stricmp is true, it types the record
+                            gotoxy(maxPrintLeft,9);printf("Fullname:%s %s", kathigites[i].surname, kathigites[i].name);
+                            flag = i;
+                            break;
+                        }
+                }
+                if (sn != kathigites[i].sn){
+                    for (int l = 56; l<110; l++){
+                        gotoxy(l,7);printf(" ");
+                    }
+                    gotoxy(maxPrintLeft, 17);printf("Press <ENTER> and re-enter or <r> to Return to Main Menu.");
+                    c = getch();
+                    if (c == 'r'){ //back to main menu
+                        clrRight();
+                        return;
+                    }
+
+                }
+            } while (sn != kathigites[i].sn);//while the sn is wrong
+
+        getch();
+    }
+
+    fp2 = fopen("program.txt", "r");
+
+    if (fp2 == NULL ){
+        gotoxy(maxPrintLeft, 9);printf("Problem opening the file");
+        exit (2);
+    }
+
+    clrRight(); j=0;
+    N2=0;//initialized line counter
+    do{
+    gotoxy(maxPrintLeft, 12);printf("Type year(YYYY): ");
+    scanf("%d", &year);
+    gotoxy(maxPrintLeft, 13);printf("Type month(01-12): ");
+    scanf("%d",&month);
+        while (!feof(fp2)){
+            fscanf(fp2, "%d %d %d %s %s %s %s %d", &dd, &mm, &yyyy, subj2, lastname2, firstname2, class2, &mhours);
+                if ((!(strcmp(lastname2,surname))) &&  (!(strcmp(firstname2,name))) && (year == yyyy) && (month == mm)){
+                    N2++;
+                }
+        }
+        if (N2 == 0){
+            gotoxy(maxPrintLeft, 15);printf("The month or the year is wrong");
+            gotoxy(maxPrintLeft, 16);printf("or the professor has not taught the given time.\n");
+            gotoxy(maxPrintLeft, 17);printf("Press <ENTER> and re-enter or <r> to Return to Main Menu.");
+            c = getch();
+            if (c == 'r'){ //back to main menu
+                        clrRight();
+                        return;
+                }
+            fseek(fp2,0,SEEK_SET);//returns pointer to the begging
+            clrRight();
+        }
+   }while(N2 == 0);
+        programma = (pro*)malloc(N2*sizeof(pro)); //memory allocation
+            if (programma == NULL){ // check for memory
+                printf("There is no enough memory");
+                exit (2);
+            }
+            fseek(fp2,0,SEEK_SET); //returns the file position pointer at the beginning of the file
+            for(j=0;j<N2;){
+                fscanf(fp2, "%d %d %d %s %s %s %s %d", &dd, &mm, &yyyy, subj2, lastname2, firstname2, class2, &mhours);
+                if ((!(strcmp(lastname2,surname))) &&  (!(strcmp(firstname2,name))) && (year == yyyy) && (month == mm)){
+                    programma[j].dd  =  dd;
+                    programma[j].mm  =  mm;
+                    programma[j].yyyy  =  yyyy;
+                    strcpy(programma[j].subject2,subj2);
+                    strcpy(programma[j].lastname2, lastname2);
+                    strcpy(programma[j].firstname2, firstname2);
+                    strcpy(programma[j].class2,class2);
+                    programma[j].mhours  =  mhours;
+                    wres = wres + programma[j].mhours; //add monthly hours
+                    j++;
+                }
+            }
+            fclose(fp2);
+
+const char* minas = mmToMonth(mm);
+char affirmation[80];
+FILE *tService;
+
+//sprintf(payFile,"\\\\192.168.1.2\\share\\Affirmation\\%s_%s_%d_%d.txt", lastname, firstname, mm, yyyy);
+sprintf(affirmation,"%s_%s_%s_%d_%d.txt", "Affirmation", lastname2, firstname2, mm, yyyy);
+tService=fopen(affirmation,"w");
+    if (tService == NULL){
+        gotoxy(maxPrintLeft, 20);printf("Problem with file opening");
+        exit(2);
+    }
+
+fprintf(tService, "\t\t\t SELF AFFIRMATION\n\n");
+fprintf(tService, "|--------------------------------------------------------------------|\n");
+fprintf(tService, "%-17s %s %s", "|TO", "|" ," Aviation Financial and Accounting Center        |\n");
+fprintf(tService, "|--------------------------------------------------------------------|\n");
+fprintf(tService, "%-17s %s %21s %-26s %s\n","|FULL NAME", "|" , lastname2, firstname2, "|");
+fprintf(tService, "|--------------------------------------------------------------------|\n");
+fprintf(tService, "%-17s %s %-48s %s\n", "|FATHER'S NAME", "|", kathigites[flag].fname, "|");
+fprintf(tService, "|--------------------------------------------------------------------|\n");
+fprintf(tService, "%-17s %s %-48s %s\n", "|MOTHER'S NAME", "|", kathigites[flag].mname, "|");
+fprintf(tService, "|--------------------------------------------------------------------|\n");
+fprintf(tService, "%-17s %s %2d/%2d/%-42d %s\n", "|DATE OF BIRTH", "|", kathigites[flag].db, kathigites[flag].mb, kathigites[flag].yb, "|");
+fprintf(tService, "|--------------------------------------------------------------------|\n");
+fprintf(tService, "%-17s %s %-48s %s\n", "|ID NUMBER", "|", kathigites[flag].ID, "|");
+fprintf(tService, "|--------------------------------------------------------------------|\n");
+fprintf(tService, "%-68s %s\n", "|RESIDENTIAL DATA", "|");
+fprintf(tService, "|--------------------------------------------------------------------|\n");
+fprintf(tService, "%-17s %s %-48s %s\n", "|CITY", "|", kathigites[flag].city, "|");
+fprintf(tService, "|--------------------------------------------------------------------|\n");
+fprintf(tService, "%-17s %s %-48s %s\n", "|ADDRESS", "|", kathigites[flag].address, "|");
+fprintf(tService, "|--------------------------------------------------------------------|\n");
+fprintf(tService, "%-17s %s %-48d %s\n", "|No", "|", kathigites[flag].aNo, "|");
+fprintf(tService, "|--------------------------------------------------------------------|\n");
+fprintf(tService, "%-17s %s %-48d %s\n", "|POSTAL CODE", "|",  kathigites[flag].tk, "|");
+fprintf(tService, "|--------------------------------------------------------------------|\n");
+fprintf(tService, "\t At my sole discretion and knowing the penalties provided by the applicable legislation "
+        "regarding the accuracy of my information and statements, I declare responsibly:\n");
+fprintf(tService, "\t 1. During the month of %s and year %d, I went beyond compulsory hours and %d hours of teaching.\n", minas, year, wres);
+    if (!strcmp(kathigites[flag].condition,"Hourly_Wage")){
+            //prints affirmation for Hourly_wage professors
+        fprintf(tService, "\t 2. The total of the above earnings I have received or will receive for the "
+           "month of %s is lower than the total gross salary of the President of the "
+           "Supreme Court as determined by the provisions of Article 6 of Law 1256/82 as currently in force\n\n\n", minas);
+    }else{
+        //prints for internal and external military professors
+        fprintf(tService, "\t 2. I give up the expected compensation for the forty (40) hours I have spent per month according to the provisions"
+        " of the Ministerial Order F.540/2/8756/S.766/ 12 Jan 18 of the Minister of National Defense and Finance.\n\n\n");
+    }
+fprintf(tService, "%65s", "Signature");
+
+
+fclose(tService);
+free(kathigites);
+free(programma);
+
+}
+
+void allSelfAffirmationForm(){
+
+    int  i, j, flag=0, year=0, month=0, N, N2;
+    int aNo, tk, db, mb, yb;
+    char ID[maxID], surname[maxSurname], name[maxName], fName[maxFname], mName[maxMname], rank[maxRank], condition[maxCondition], degree[maxDegree],
+            address[maxAddress], town[maxCity], phone[maxPhone], enable[maxEnable];
+    char c;
+
+    int dd, mm, yyyy, mhours, wres=0;
+    char subj2[maxSubject], lastname2[maxSurname], firstname2[maxName], class2[maxClass];
+
+    FILE *fp, *fp2;
+
+    fp = fopen("faculties.txt", "r");
+
+    if (fp == NULL ){
+        gotoxy(maxPrintLeft, 9);printf("Problem opening the file");
+        exit (2);
+    }
+    N=0;//initialized line counter
+    while (!feof(fp)){
+        fscanf(fp, "%s %s %s %s %s %d %d %d %s %s %s %s %d %s %d %s %s", ID, surname, name, fName, mName, &db, &mb, &yb, rank, condition, degree,
+                address,&aNo, town, &tk, phone, enable);
+            if ((strcmp(enable, "+")) == 0) { //counts line only for enabled professors
+                    N++;
+            }
+    }
+
+    kathigites = (fac*)malloc(N*sizeof(fac)); //memory allocation only for enable professors
+    if (kathigites==NULL){ // check for memory
+        printf("There is no enough memory");
+        exit (2);
+   }
+    fseek(fp,0,SEEK_SET); //returns the file position pointer at the begining of the file
+    for(i=0; i<N;){ //raise i only if found enable faculty
+        fscanf(fp, "%s %s %s %s %s %d %d %d %s %s %s %s %d %s %d %s %s", ID, surname, name, fName, mName, &db, &mb, &yb, rank, condition, degree,
+                address,&aNo, town, &tk, phone, enable);
+            if (strcmp(enable, "+") == 0){ //passing files  data into array(only enable faculties)
+                kathigites[i].sn = 0;
+                strcpy(kathigites[i].ID,ID);
+                strcpy(kathigites[i].surname,surname);
+                strcpy(kathigites[i].name,name);
+                strcpy(kathigites[i].fname,fName);
+                strcpy(kathigites[i].mname,mName);
+                kathigites[i].db=db;
+                kathigites[i].mb=mb;
+                kathigites[i].yb=yb;
+                strcpy(kathigites[i].rank,rank);
+                strcpy(kathigites[i].condition,condition);
+                strcpy(kathigites[i].degree,degree);
+                strcpy(kathigites[i].address,address);
+                kathigites[i].aNo=aNo;
+                strcpy(kathigites[i].city,town);
+                kathigites[i].tk=tk;
+                strcpy(kathigites[i].phone,phone);
+                strcpy(kathigites[i].enable,enable);
+                ++i;
+            }
+    }
+        fclose(fp);
+
+
+    fp2 = fopen("program.txt", "r");
+
+    if (fp2 == NULL ){
+        gotoxy(maxPrintLeft, 9);printf("Problem opening the file");
+        exit (2);
+    }
+
+    clrRight(); i=0;
+    N2=0;//initialized line counter
+    do{
+    gotoxy(maxPrintLeft, 12);printf("Type year(YYYY): ");
+    scanf("%d", &year);
+    gotoxy(maxPrintLeft, 13);printf("Type month(01-12): ");
+    scanf("%d",&month);
+        while (!feof(fp2)){
+            fscanf(fp2, "%d %d %d %s %s %s %s %d", &dd, &mm, &yyyy, subj2, lastname2, firstname2, class2, &mhours);
+                if ((year == yyyy) && (month == mm)){
+                    N2++;
+                }
+        }
+        if (N2 == 0){
+            gotoxy(maxPrintLeft, 15);printf("The month or the year is wrong\n.");
+            gotoxy(maxPrintLeft, 17);printf("Press <ENTER> and re-enter or <r> to Return to Main Menu.");
+            c = getch();
+            if (c == 'r'){ //back to main menu
+                        clrRight();
+                        return;
+                }
+            fseek(fp2,0,SEEK_SET);//returns pointer to the begging
+            clrRight();
+        }
+   }while(N2 == 0);
+        programma = (pro*)malloc(N2*sizeof(pro)); //memory allocation
+            if (programma == NULL){ // check for memory
+                printf("There is no enough memory");
+                exit (2);
+            }
+            fseek(fp2,0,SEEK_SET); //returns the file position pointer at the beginning of the file
+            for(i=0;i<N2;){
+
+                fscanf(fp2, "%d %d %d %s %s %s %s %d", &dd, &mm, &yyyy, subj2, lastname2, firstname2, class2, &mhours);
+                if ((year == yyyy) && (month == mm)){
+                    programma[i].dd  =  dd;
+                    programma[i].mm  =  mm;
+                    programma[i].yyyy  =  yyyy;
+                    strcpy(programma[i].subject2,subj2);
+                    strcpy(programma[i].lastname2, lastname2);
+                    strcpy(programma[i].firstname2, firstname2);
+                    strcpy(programma[i].class2,class2);
+                    programma[i].mhours  =  mhours;
+
+                    i++;
+                }
+            }
+    const char* minas = mmToMonth(mm);
+    char affirmation[80];
+    FILE *tService;
+
+    //sprintf(payFile,"\\\\192.168.1.2\\share\\Affirmation\\%s_%s_%d_%d.txt", lastname, firstname, mm, yyyy);
+    sprintf(affirmation,"%s_%d_%d.txt", "Affirmation", mm, yyyy);
+    tService=fopen(affirmation,"w");
+        if (tService == NULL){
+            gotoxy(maxPrintLeft, 20);printf("Problem with file opening");
+            exit(2);
+        }
+        for (i=0;i<N;i++){
+
+                        fprintf(tService, "\t\t\t SELF AFFIRMATION\n\n");
+                        fprintf(tService, "|--------------------------------------------------------------------|\n");
+                        fprintf(tService, "%-17s %s %s", "|TO", "|" ," Aviation Financial and Accounting Center        |\n");
+                        fprintf(tService, "|--------------------------------------------------------------------|\n");
+                        fprintf(tService, "%-17s %s %21s %-26s %s\n","|FULL NAME", "|" , kathigites[i].surname, kathigites[i].name, "|");
+                        fprintf(tService, "|--------------------------------------------------------------------|\n");
+                        fprintf(tService, "%-17s %s %-48s %s\n", "|FATHER'S NAME", "|", kathigites[i].fname, "|");
+                        fprintf(tService, "|--------------------------------------------------------------------|\n");
+                        fprintf(tService, "%-17s %s %-48s %s\n", "|MOTHER'S NAME", "|", kathigites[i].mname, "|");
+                        fprintf(tService, "|--------------------------------------------------------------------|\n");
+                        fprintf(tService, "%-17s %s %2d/%2d/%-42d %s\n", "|DATE OF BIRTH", "|", kathigites[i].db, kathigites[i].mb, kathigites[i].yb, "|");
+                        fprintf(tService, "|--------------------------------------------------------------------|\n");
+                        fprintf(tService, "%-17s %s %-48s %s\n", "|ID NUMBER", "|", kathigites[i].ID, "|");
+                        fprintf(tService, "|--------------------------------------------------------------------|\n");
+                        fprintf(tService, "%-68s %s\n", "|RESIDENTIAL DATA", "|");
+                        fprintf(tService, "|--------------------------------------------------------------------|\n");
+                        fprintf(tService, "%-17s %s %-48s %s\n", "|CITY", "|", kathigites[i].city, "|");
+                        fprintf(tService, "|--------------------------------------------------------------------|\n");
+                        fprintf(tService, "%-17s %s %-48s %s\n", "|ADDRESS", "|", kathigites[i].address, "|");
+                        fprintf(tService, "|--------------------------------------------------------------------|\n");
+                        fprintf(tService, "%-17s %s %-48d %s\n", "|No", "|", kathigites[i].aNo, "|");
+                        fprintf(tService, "|--------------------------------------------------------------------|\n");
+                        fprintf(tService, "%-17s %s %-48d %s\n", "|POSTAL CODE", "|",  kathigites[i].tk, "|");
+                        fprintf(tService, "|--------------------------------------------------------------------|\n");
+                        for (j=0;j<N2;j++){
+                                if (!(strcmp(kathigites[i].surname,programma[j].lastname2)) && (!(strcmp(kathigites[i].name,programma[j].firstname2)))&& (year == programma[j].yyyy) && (month == programma[j].mm)){
+                                    wres = wres + programma[j].mhours;
+                                }
+                        }
+                        fprintf(tService, "\t At my sole discretion and knowing the penalties provided by the applicable legislation "
+                                "regarding the accuracy of my information and statements, I declare responsibly:\n");
+                        fprintf(tService, "\t 1. During the month of %s and year %d, I went beyond compulsory hours and %d hours of teaching.\n", minas, year, wres);
+                            if (!strcmp(kathigites[i].condition,"Hourly_Wage")){
+                                    //prints affirmation for Hourly_wage professors
+                                fprintf(tService, "\t 2. The total of the above earnings I have received or will receive for the "
+                                   "month of %s is lower than the total gross salary of the President of the "
+                                   "Supreme Court as determined by the provisions of Article 6 of Law 1256/82 as currently in force\n\n\n" ,minas);
+                            }else{
+                                //prints for internal and external military professors
+                                fprintf(tService, "\t 2. I give up the expected compensation for the forty (40) hours I have spent per month according to the provisions"
+                                " of the Ministerial Order F.540/2/8756/S.766/ 12 Jan 18 of the Minister of National Defense and Finance.\n\n\n");
+                            }
+                        fprintf(tService, "%65s", "Signature\n\f");
+
+                    wres = 0;
+        }
+
+
+    fclose(tService);
+    free(kathigites);
+    free(programma);
 
 }
 
@@ -976,8 +1587,33 @@ void window_one(){
             case 1:
                 facultyPayments();
                 break;
-           case 2:
+            case 2:
                 allFacultyPayments();
+                break;
+            case 3:
+                main_window();
+                break;
+        }
+    }
+}
+
+void window_three(){
+    int choice, x=2;
+    FontColor(4);
+
+    clrLeft();
+    while(1){
+        gotoxy(x,8);printf("1. Namely");
+        gotoxy(x,10);printf("2. For all the stuff");
+        gotoxy(x,12);printf("3. Main Menu");
+        gotoxy(x,16);printf("Enter your choice:");
+        scanf("%d", &choice);
+        switch(choice){
+            case 1:
+                selfAffirmationForm();
+                break;
+            case 2:
+                allSelfAffirmationForm();
                 break;
             case 3:
                 main_window();
@@ -996,7 +1632,7 @@ void main_window(){
     while(1){
         gotoxy(x,8);printf("1. Faculty Payments");
         gotoxy(x,10);printf("2. Teaching Services Certificate");
-        gotoxy(x,12);printf("3. Subjects' Remaining Hours");
+        gotoxy(x,12);printf("3. Self-Affirmation Form");
         gotoxy(x,14);printf("4. Faculties' Remaining Hours");
         gotoxy(x,16);printf("5. Exit");
         gotoxy(x,18);printf("Enter your choice:");
@@ -1008,12 +1644,12 @@ void main_window(){
             case 2:
                 teachingServicesCertificate();
                 break;
-            /*case 3:
-                subjectsRemainingHours();
+            case 3:
+                window_three();
                 break;
             case 4:
-                facultiesRemainingHours();
-                break;*/
+                facRemainingHours();
+                break;
             case 5:
                 exit(0);
                 break;

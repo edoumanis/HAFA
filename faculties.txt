@@ -1,24 +1,73 @@
-12345      Ioannou        Dimitrios    Georgiou    CMSgt Ext  -       Priamou     34    Athens    12345   2101234567   -
-54321      Kavadas         Ioannis     Dimitriou     -    HW  PG    Kolokotroni   56    Athens    13543   2111234567   +
-67890      Ioannou      Konstantinos  Athanasiou     -    HW Phd   Mpoumpoulinas  54   Aharnes    14567   6981234567   +
-98765      Ioannou       Aikaterini    Theodorou   Capt  Int  PG       Iliou      35   Psihiko    23456   6991234567   +
-13579      Ioannou         Dimitra      Ioannou      -    HW  UG      Tatoiou     13   Papagou    54433   6971234567   +
-97531      Ioannou         Kostas       Mariou       -    HW  PG     Parnithos     1   Kamatero   20090   2107654321   +
-24680    Larentzakis        Dimos     Panagiotou     -    HW  PG   Aristotelous   45    Pireas    19909   2117654321   +
-80642      Kavadas        Swtirios     Nikolaou     WO   Int  -      Magnisias    67   Kifisia    34565   2102323234   +
-12457     Panagiotou     Panagiotis   Alexandrou     -    HW Phd   Papasiopoulou   2    Lamia     45690   2113456345   -
-13567     Iosifidis         Iosif       Petrou     LtCol Ext Phd     Panagouli    58   Karditsa   45900   6905656565   +
-15678      Kavadas         Kostas       Ioannis    CMSgt Ext  UG     Panagouli    58   Karditsa   45900   6905656565   +
-56748      Ioannou         Marios      Georgiou    LtCol Int Phd     Panagouli    58   Karditsa   45900   6905656565   +
-90876  Panagiotopoulos   Panagiotis    Dimitriou     -    HW  PG     Panagouli    58   Karditsa   45900   6905656565   +
-91789  Paraskevopoulou      Maria      Vasileiou   LtCol Ext Phd     Panagouli    58   Karditsa   45900   6905656565   +
-92786      Sofianou         Sofia      Dimitriou   LtCol Int  UG     Panagouli    58   Karditsa   45900   6905656565   +
-93786     Dimitriou        Dimitra      Petrou     CMSgt Ext  -      Panagouli    58   Karditsa   45900   6905656565   -
-94786     Theodosiou      Theodosis     Ioanni       -    HW Phd     Panagouli    58   Karditsa   45900   6905656565   +
-97789      Andreou         Stavros   Konstantinou  LtCol Ext Phd     Panagouli    58   Karditsa   45900   6905656565   +
-98678    Avagianidis        Babis       Xristou    CMSgt Int Phd     Panagouli    58   Karditsa   45900   6905656565   +
-81111     Athanasiou     Athanasios    Theodorou     -    HW  PG     Panagouli    58   Karditsa   45900   6905656565   +
-81114      Agiotis        Dimitrios    Emmanouil   LtCol Ext  UG     Panagouli    58   Karditsa   45900   6905656565   +
-81115     Alexandrou     Alexandros      Iosif     LtCol Ext  -      Panagouli    58   Karditsa   45900   6905656565   +
-81116    Mavropoulos      Dionisios    Apostolou   LtCol Ext Phd     Panagouli    58   Karditsa   45900   6905656565   -
-81117       Tsali          Nefeli        Dimou       -    HW  PG     Panagouli    58   Karditsa   45900   6905656565   +
+12345       Ioannou        Dimitrios      Georgiou       Maria     15  1   1970    CMSgt       External            -             Priamou      34       Voula          12345     2111234567    -
+54321       Kavadas         Ioannis       Dimitriou      Eleni     23  2   1971      -        Hourly_Wage     PostGraduate     Kolokotroni    56    Monastiraki       13543     6981234567    +
+67890       Ioannou      Konstantinos    Athanasiou     Theodora   24  3   1972      -        Hourly_Wage         Phd         Mpoumpoulinas   54      Aharnes         14567     6991234567    +
+98765       Ioannou       Aikaterini      Theodorou     Isidwra    12  4   1973     Capt       Internal       PostGraduate        Iliou       35      Psihiko         13671     6971234567    +
+13579       Ioannou         Dimitra        Ioannou     Ekaterini   2   5   1974      -        Hourly_Wage    UnderGraduate       Tatoiou      13      Papagou         13565     2107654321    +
+97531       Ioannou         Kostas         Mariou       Georgia    3   6   1975      -        Hourly_Wage     PostGraduate      Parnithos     1       Kamatero        17623     2117654321    +
+24680     Larentzakis        Dimos       Panagiotou     Svthria    4   7   1976      -        Hourly_Wage     PostGraduate    Aristotelous    45       Pireas         19909     2102323234    +
+80642       Kavadas        Swtirios       Nikolaou     Margarita   8   8   1977      WO        Internal            -            Magnisias     67      Kifisia         34565     2113456345    +
+12457     Panagiotou      Panagiotis     Alexandrou     Dimitra    10  9   1978      -        Hourly_Wage         Phd         Papasiopoulou   2      Kallithea        11851     2108474128    +
+13567      Iosifidis         Iosif         Petrou      Panagiota   12 10   1979    LtCol       External           Phd            Galinou      34      Paiania         11476     2103095953    +
+15678       Kavadas         Kostas         Ioannis    Konstantina  14 11   1980    CMSgt       External      UnderGraduate      Malakopis     56      Chaidari        10433     2103928415    +
+56748       Ioannou         Marios        Georgiou      Labrini    15 12   1981    LtCol       Internal           Phd           Inepolis      67      Keratea         10431     2102359908    +
+90876   Panagiotopoulos   Panagiotis      Dimitriou     Dionysia   17  1   1982      -        Hourly_Wage     PostGraduate    Trapezountos    32       Koropi         10432     2105218090    +
+91789   Paraskevopoulou      Maria        Vasileiou     Markella   19  2   1970    LtCol       External           Phd          Ellispontou    54      Eleusina        11141     2102399882    +
+92786      Sofianou          Sofia        Dimitriou     Victoria   21  3   1971    LtCol       Internal      UnderGraduate      Vyzantiou     76     Petroupoli       10445     2107251558    +
+93786      Dimitriou        Dimitra        Petrou      Athanasia   30  4   1972    CMSgt       External            -            Pergamou      12      N.Ionia         11476     2104186334    -
+94786     Theodosiou       Theodosis       Ioanni       Pinelopi   11  5   1973      -        Hourly_Wage         Phd           Vosporou      23     N.Irakleio       11525     2107464235    +
+97789       Andreou         Stavros     Konstantinou     Ioanna    3   6   1974    LtCol       External           Phd          Antistaseos    48      N.Smyrni        11478     2108271462    +
+98678     Avagianidis        Babis         Xristou     Alexandra   5   7   1975    CMSgt       Internal           Phd            Akriton      62      Galatsi         10551     2107336530    +
+81111     Athanasiou      Athanasios      Theodorou     Varvara    7   8   1976      -        Hourly_Wage     PostGraduate       Nigdis       8       Zografou        16674     2107341182    +
+81114       Agiotis        Dimitrios      Emmanouil     Vasiliki   1   9   1977    LtCol       External      UnderGraduate     Kastamonis     81      Papagou         16562     2105283013    +
+81115     Alexandrou      Alexandros        Iosif        Eleni     3  10   1978    LtCol       External            -           Selinountos    90  Thrakomakedones     16674     2107736059    +
+81116     Mavropoulos      Dionisios      Apostolou     Nikoleta   29 11   1979    LtCol       External           Phd             Rodou       15      Ol.Horio        12343     2108092603    -
+81117        Tsali          Nefeli          Dimou        Valina    28 12   1980      -        Hourly_Wage     PostGraduate       Kritis       17      Artemida        14325     2104531556    +
+81118     Plagianakos      Dimitrios     Panagiotis      Areti     23 10   1983      WO        Internal       PostGraduate       Gravias      19      N.Makri         17890     2106061582    +
+81119      Kasimatis       Nikolaos        Petros        Maria     15  1   1970    CMSgt       External            -             Lykias       12     Kallithea        11476     2108145896    +
+81120       Siebos         Euaggelos      Georgios       Eleni     23  2   1971      -        Hourly_Wage     PostGraduate       Lachana      23      Paiania         11525     2106817175    +
+81121     Oikonomidis      Georgios        Ioannis      Theodora   24  3   1972      -        Hourly_Wage         Phd          Ifigeneias     48      Chaidari        11478     2104407870    +
+81122       Liaskas        Mathaios        Vasilis      Isidwra    12  4   1973     Capt       Internal       PostGraduate      Antigonis     62      Keratea         10551     2104427343    +
+81123     Kyriakides        Petros        Georgios     Ekaterini   2   5   1974      -        Hourly_Wage    UnderGraduate      Menelaou      8        Koropi         16674     2106594887    +
+81124     Apostolidis      Apostolos      Dimitris      Georgia    3   6   1975      -        Hourly_Wage     PostGraduate      Platonos      81      Eleusina        16562     2104298900    -
+81125  Papakonstantinou     Petros         Vasilis      Svthria    4   7   1976      -        Hourly_Wage     PostGraduate       Miaouli      90     Petroupoli       16674     2104462544    +
+81126       Ioannou         Ioannis       Nikolaos     Margarita   8   8   1977      WO        Internal            -             Kanari       15      N.Ionia         12343     2109320675    +
+81127     Kostantinou      Christos       Georgios      Dimitra    10  9   1978      -        Hourly_Wage         Phd          Karaiskaki     17     N.Irakleio       14325     2104735777    +
+81128      Georgiou         Andreas       Grigoris     Panagiota   12 10   1979    LtCol       External           Phd           Gourdonos     19      N.Smyrni        17890     2106623540    +
+81129      Farmakis         Vasilis        Ioannis    Konstantina  14 11   1980    CMSgt       External      UnderGraduate      Achilleos     12      Galatsi         12345     2108232601    +
+81130       Argyrou         Argyris       Kleomenis     Labrini    15 12   1981    LtCol       Internal           Phd         Aristotelous    23      Zografou        13543     2104143146    +
+81131       Loulias        Euaggelos      Emmanouil     Dionysia   17  1   1982      -        Hourly_Wage     PostGraduate      Euripidou     48      Papagou         14567     2102193879    +
+81132      Psomiades       Charilaos     Panagiotis     Markella   19  2   1970    LtCol       External           Phd           Dafnidos      62  Thrakomakedones     13671     2103725677    +
+81133    Hristodoulou       Ioannis     Konstantinos    Victoria   21  3   1971    LtCol       Internal      UnderGraduate     Dodekanisou    8       Ol.Horio        13565     2105979529    +
+81134     Raptopoulos       Ioannis      Panagiotis     Labrini    30  4   1972    CMSgt       External            -            Nikitara      81      Artemida        17623     2108128278    +
+81135     Anthemides        Iraklis       Nikolaos      Dionysia   11  5   1973      -        Hourly_Wage         Phd         Dimosthenous    90      N.Makri         19909     2107306025    +
+81136       Pagidas        Christos       Dimitrios     Markella   3   6   1974    LtCol       External           Phd            Digeni       15     Kallithea        34565     2106453839    +
+81137      Kamateros     Konstantinos     Emmanouil     Victoria   5   7   1975    CMSgt       Internal           Phd             Skra        17      Paiania         12345     2108658632    +
+81138      Laoutaris        Kosmas         Ioannis     Athanasia   7   8   1976      -        Hourly_Wage     PostGraduate      Anaxagora     19      Chaidari        13543     2102653161    +
+81139     Kokkinaios        Stauros       Christos      Pinelopi   1   9   1977    LtCol       External      UnderGraduate      Philippou     12      Keratea         14567     2106263720    +
+81140       Klapsas        Stergios        Andreas       Ioanna    3  10   1974    LtCol       External            -            Irakleos      23       Koropi         13671     2105720035    +
+81141   Nikolakopoulos      Symeon       Kontantinos   Alexandra   5  11   1975    LtCol       External           Phd            Kivelis      48      Eleusina        13565     2102446787    +
+81142     Pharmakides      Nikolaos       Kyriakos      Varvara    7  12   1976      -        Hourly_Wage     PostGraduate       Niovis       62     Petroupoli       17623     2108193051    +
+81143      Solakian         Labros        Charilaos     Vasiliki   1   2   1977      WO        Internal       PostGraduate       Dramas       8       N.Ionia         19909     2105848150    +
+81144       Ioannou        Dimitrios      Dimitris     Margarita   23  1   1972    CMSgt       External       PostGraduate       Priamou      54      Kifisia         11476     2103284674    +
+81145       Ioannou         Ioannis        Vasilis      Dimitra    24  2   1973      -        Hourly_Wage          -           Kolokotroni    76     Kallithea        11525     2108642494    +
+81146     Larentzakis    Konstantinos     Nikolaos     Panagiota   12  3   1974      -        Hourly_Wage         Phd         Mpoumpoulinas   12      Paiania         11478     2107042442    +
+81147       Kavada        Aikaterini      Georgios    Konstantina  2   4   1975     Capt       Internal           Phd             Iliou       23      Chaidari        10551     2104906157    +
+81148     Panagiotou        Dimitra       Grigoris      Labrini    3   5   1976      -        Hourly_Wage    UnderGraduate       Tatoiou      48      Keratea         16674     2108532514    +
+81149      Iosifidis        Kostas         Ioannis      Dionysia   4   6   1977      -        Hourly_Wage         Phd           Parnithos     62       Koropi         16562     2104989605    +
+81150       Kavadas          Dimos        Kleomenis     Markella   8   7   1978      -        Hourly_Wage     PostGraduate    Aristotelous    8       Eleusina        16674     2109023252    +
+81151       Ioannou        Swtirios       Emmanouil     Victoria   10  8   1979      WO        Internal           Phd           Magnisias     81     Petroupoli       12343     2108086554    +
+81152   Panagiotopoulos    Kleanthis     Panagiotis     Labrini    12  9   1980      -        Hourly_Wage    UnderGraduate       Priamou      90      N.Ionia         14325     2103727900    +
+81153   Paraskevopoulou     Aspasia     Konstantinos    Dionysia   14 10   1983    LtCol       External            -           Kolokotroni    15     N.Irakleio       17890     2102690285    +
+81154      Sofianos         Kostas        Dimitris      Markella   15 11   1970    CMSgt       External           Phd         Mpoumpoulinas   17      N.Smyrni        11476     2108869100    +
+81155      Dimitriou        Marios         Vasilis      Victoria   17 12   1971    LtCol       Internal           Phd             Iliou       19      Galatsi         11525     2109815077    +
+81156     Theodosiou      Panagiotis      Nikolaos     Athanasia   19  1   1972      -        Hourly_Wage         Phd            Tatoiou      12      Zografou        11478     2108314990    +
+81157       Andreou          Maria        Georgios       Eleni     21  2   1973    LtCol       External       PostGraduate      Parnithos     23      Papagou         10551     2103189568    +
+81158     Avagianidou        Sofia        Grigoris      Nikoleta   30  3   1974    LtCol       Internal      UnderGraduate    Aristotelous    48  Thrakomakedones     16674     2102555215    +
+81159     Athanasiou        Dimitra        Ioannis       Valina    11  4   1983    CMSgt       External            -            Magnisias     62      Zografou        16562     2108214746    +
+81160       Agiotis        Theodosis      Kleomenis      Areti     3  10   1970      -        Hourly_Wage         Phd            Priamou      8       Papagou         16674     2104853002    +
+81161     Alexandrou        Stavros       Emmanouil      Maria     8  11   1971    LtCol       External       PostGraduate     Kolokotroni    81      Keratea         12343     2104807199    +
+81162     Mavropoulos        Babis       Panagiotis     Markella   10 12   1972    CMSgt       Internal       PostGraduate    Mpoumpoulinas   62     Kallithea        14325     2105039860    +
+81163        Tsali         Athanasia    Konstantinos    Victoria   12  1   1973    LtCol       External            -              Iliou       8       Paiania         17890     2102983865    +
+81164     Plagianakos      Dimitrios      Nikolaos     Athanasia   14  2   1974    CMSgt       Internal           Phd            Tatoiou      81      Chaidari        12345     2107340169    +
+81165   Paraskevopoulou     Dimitra       Nikolaos       Eleni     19  5   1984      -        Hourly_Wage    UnderGraduate       Priamou      14      Papagou         16674     2104180958    +
+81166      Sofianos        Swtirios       Dimitris      Victoria   21 16   1980    CMSgt       Internal       PostGraduate     Kolokotroni    32      Keratea         12343     2102661336    +
