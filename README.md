@@ -11,4 +11,6 @@ No 3 Saves to text file the self affirmation form for teaching.
 
 No 4 Exports report of remaining hours of teaching.
 
+No 5 Exports and validates for duplicates weekly schedule.
+
 For surname searching you can pass only the fisrt letters.
