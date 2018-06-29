@@ -1661,7 +1661,7 @@ free(programma);
 
 
 void scheduleVal(){
-int year, weekNo, N2, i, j=0, flag, nYear, nMonth, nDay;
+int year, weekNo, N2, i, j=0, flag, nMonth, nDay;
 int dd, mm, yyyy, week, mhours;
 char subj2[maxSubject], lastname2[maxSurname], firstname2[maxName], class2[maxClass];
 
@@ -1689,7 +1689,7 @@ fp2 = fopen("program.txt", "r");
             fscanf(fp2, "%d %d %d %d %s %s %s %s %d", &dd, &mm, &yyyy, &week, subj2, lastname2, firstname2, class2, &mhours);
             if ((((yyyy == year)&&(mm>=9))|| ((yyyy == year+1)&&(mm<=8))) && (weekNo == week)){ //inside the academic year and correct week
                 if (flag == 0){ //stores the month and day only the first time for comparison reasons
-                    nYear = yyyy;
+                    //nYear = yyyy;
                     nMonth = mm;
                     nDay = dd;
                     flag = 1;
