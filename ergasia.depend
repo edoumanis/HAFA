@@ -1,0 +1,22 @@
+# depslib dependency file v1.0
+1529538160 source:c:\users\ermis\desktop\hafa_2\210618\main.c
+	<stdio.h>
+	"sinartiseis.h"
+
+1529538221 c:\users\ermis\desktop\hafa_2\210618\sinartiseis.h
+	<stdio.h>
+	<string.h>
+	<conio.h>
+	<stdlib.h>
+	<windows.h>
+	<time.h>
+
+1529550995 source:c:\users\ermis\desktop\hafa_2\210618\sinartiseis.c
+	<stdio.h>
+	<string.h>
+	<conio.h>
+	<stdlib.h>
+	<windows.h>
+	<time.h>
+	"sinartiseis.h"
+
